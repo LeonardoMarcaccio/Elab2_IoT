@@ -1,0 +1,28 @@
+{
+  "name": "carwashgui",
+  "version": "1.0.0",
+  "description": "A GUI used to monitor and communicate with a Carwash connected via USB",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "launchtest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeonardoMarcaccio/Elab2_IoT.git"
+  },
+  "keywords": [
+    "IoT",
+    "Carwash",
+    "Unibo"
+  ],
+  "author": "Leonardo Marcaccio, Lorenzo Dalmonte, Marco Francolini",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/LeonardoMarcaccio/Elab2_IoT/issues"
+  },
+  "homepage": "https://github.com/LeonardoMarcaccio/Elab2_IoT#readme",
+  "devDependencies": {
+    "electron": "^27.0.4"
+  }
+}
