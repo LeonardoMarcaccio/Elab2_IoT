@@ -2,14 +2,14 @@
 #define _SIMPLELCD_
 
 #include "ActiveComponent.h"
-#include <string.h>
+#include <WString.h>
 
 using namespace std;
 
 class SimpleLCD : public ActiveComponent {
     public:
-        virtual void setDisplayText(string);
-        virtual string getDisplayText();
+        virtual void setDisplayText(String);
+        virtual String getDisplayText();
         virtual void clear();
 };
 

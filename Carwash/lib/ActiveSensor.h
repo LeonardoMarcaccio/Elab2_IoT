@@ -1,13 +1,18 @@
 #ifndef _SERVO_
 #define _SERVO_
 
-#include "ActiveSensor.h"
+#include "ActiveComponent.h"
 
 using namespace std;
 
-class ActiveSensor {
+class DigitalSensor : public ActiveComponent {
     public :
-        virtual bool getDetectedState();
+        virtual bool isDetecting();
+};
+
+class AnalogSensor {
+    public :
+        virtual double getDetection();
 };
 
 #endif
