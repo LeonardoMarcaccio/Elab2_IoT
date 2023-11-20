@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <PIR.cpp>
 
 // put function declarations here:
 int myFunction(int, int);
@@ -6,6 +7,7 @@ int myFunction(int, int);
 void setup() {
   // put your setup code here, to run once:
   int result = myFunction(2, 3);
+  auto* piro = new PIR(false, 1);
 }
 
 void loop() {
