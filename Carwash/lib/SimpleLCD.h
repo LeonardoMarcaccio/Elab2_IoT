@@ -2,6 +2,7 @@
 #define _SIMPLELCD_
 
 #include "ActiveComponent.h"
+#include <string.h>
 
 using namespace std;
 

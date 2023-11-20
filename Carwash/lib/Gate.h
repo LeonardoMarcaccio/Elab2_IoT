@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Servo : public Servo {
+class Gate : public Servo {
     public :
         virtual bool isOpen();
         virtual void setOpen(bool);
