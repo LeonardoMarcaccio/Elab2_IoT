@@ -1,6 +1,5 @@
-const { app, BrowserWindow, contextBridge } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('node:path')
-const fs = require('fs')
 
 // Creates a window using the main page
 const createWindow = () => {
@@ -11,6 +10,7 @@ const createWindow = () => {
             sandbox: false,
             preload: path.join(__dirname, 'preload.js')
         },
+        icon: "./assets/images/carwash.ico",
         frame: false
     })
     win.loadFile('index.html')
@@ -28,14 +28,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
-
-/*const fileSystem = {
-    fsReadFile: (pathToFile, encoding) => {
-        return fs.readFileSync(pathToFile, {encoding})
-    }
-}*/
-
-function uniqueNameRead(pathToFile, encoding) {
-    return fs.readFileSync(pathToFile, {encoding});
-}
-console.log("Stampa all'interno di main.js:\n"+uniqueNameRead("test.txt", "UTF-8"))
