@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 
 // Creates a window using the main page
@@ -7,8 +7,11 @@ const createWindow = () => {
         width: 800,
         height: 600,
         webPreferences: {
+            sandbox: false,
             preload: path.join(__dirname, 'preload.js')
-        }
+        },
+        icon: "./assets/images/carwash.ico",
+        frame: false
     })
     win.loadFile('index.html')
 }
@@ -16,7 +19,6 @@ const createWindow = () => {
 // Window opening for MacOS
 app.whenReady().then(() => {
     createWindow()
-
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
@@ -25,4 +27,8 @@ app.whenReady().then(() => {
 // Closes app when windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
+})
+
+ipcMain.on("application-quit", () => {
+    app.quit()
 })

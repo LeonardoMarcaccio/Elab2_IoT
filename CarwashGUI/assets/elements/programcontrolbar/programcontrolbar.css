@@ -1,0 +1,28 @@
+.WindowControlBtns {
+    flex-grow: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.WindowControlBtns > button {
+    background-color: transparent;
+    transition-duration: 0.3s;
+    border: none;
+    outline: none;
+    color: white;
+}
+.WindowControlBtns > button:hover {
+    background-color: gray;
+}
+.WindowControlBtns > button:active {
+    background-color: rgb(71, 71, 71);
+}
+.Label {
+    flex-grow: 2;
+}
+#QuitBtn:hover {
+    background-color: red;
+}
+#QuitBtn:active {
+    background-color: rgba(255, 0, 0, 0.77);
+}
