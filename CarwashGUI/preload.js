@@ -1,21 +1,40 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge } = require('electron')
 const fs = require('fs')
 
-contextBridge.exposeInMainWorld('versions', {
-    node: () => process.versions.node,
-    chrome: () => process.versions.chrome,
-    electron: () => process.versions.electron
-    // we can also expose variables, not just functions
-  })
+/**
+ * Checks if a string starts with any of the strings passed.
+ * @param {*} str the string to check
+ * @param {*} substrs a set of starting points
+ * @returns returns true if any of the substrings are
+ * 			present at the start of the given string
+ */
+function stringStartsWith(string, stringSet) {
+	return stringSet.some(substr => string.startsWith(substr));
+}
 
-  /*contextBridge.exposeInMainWorld('fileSystem', {
-    readFile: (pathToFile, encoding) => fileSystem.fsReadFile(pathToFile, encoding)
-  })*/
-contextBridge.exposeInMainWorld("ugly", {
-  uglyFunction: (fileName, encoding) => uniqueNameRead(fileName, encoding)
+/**
+ * Common namespace API for safe filesystem interactions.
+ */
+const fsInteraction = {
+	/**
+	 * Paths that are allowed to be used by the filesystem api.
+	 */
+	allowedPaths: ["./", "./assets/"],
+	/**
+	 * Blocking operation that reads a file and returns it's content.
+	 * @param {*} pathToFile path and filename
+	 * @param {*} encoding encoding of the file
+	 * @returns the contents of the file
+	 */
+	synchronizedRead: (pathToFile, encoding) => {
+		if (stringStartsWith(pathToFile, fsInteraction.allowedPaths)) {
+			return fs.readFileSync(pathToFile, encoding)
+		} else {
+			return ""
+		}
+	}
+}
+
+contextBridge.exposeInMainWorld("internalApis", {
+	fsInteraction: fsInteraction
 })
-console.log("Stampa all'interno di preload.js, registrato il metodo nel contextbridge")
-//console.log(uniqueNameRead("test.txt", "UTF-8"))
-//console.log(window.ugly.uglyFunction("test.txt", "UTF-8"))
-
-console.log(fs.readFileSync("test.txt", "UTF-8"))
