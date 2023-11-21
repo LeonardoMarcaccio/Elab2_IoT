@@ -3,8 +3,6 @@
 
 #include "Servo.h"
 
-using namespace std;
-
 class Gate : public Servo {
     public :
         virtual bool isOpen();
