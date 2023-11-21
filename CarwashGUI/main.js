@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('node:path')
 
 // Creates a window using the main page
@@ -27,8 +27,4 @@ app.whenReady().then(() => {
 // Closes app when windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
-})
-
-ipcMain.on("application-quit", () => {
-    app.quit()
 })

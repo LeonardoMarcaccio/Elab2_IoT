@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge } = require('electron')
 const fs = require('fs')
 
 /**
@@ -35,11 +35,6 @@ const fsInteraction = {
 	}
 }
 
-const appInteraction = {
-	interProcessRenderer: ipcRenderer
-}
-
 contextBridge.exposeInMainWorld("internalApis", {
-	fsInteraction: fsInteraction,
-	appInteraction: appInteraction
+	fsInteraction: fsInteraction
 })
