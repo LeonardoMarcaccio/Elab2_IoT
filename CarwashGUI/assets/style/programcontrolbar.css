@@ -17,7 +17,7 @@
 .WindowControlBtns > button:active {
     background-color: rgb(71, 71, 71);
 }
-.Label {
+#ProgramLabel {
     flex-grow: 2;
 }
 #QuitBtn:hover {

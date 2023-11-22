@@ -11,6 +11,8 @@ const programControlBar = {
     },
     iconifyActionFunc: () => {
         window.internalApis.appInteraction.interProcessRenderer.send("application-iconify")
+    },
+    setProgramTitle: (label) => {
+        document.getElementById("ProgramLabel").innerHTML = label
     }
-    
 }
