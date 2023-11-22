@@ -3,8 +3,6 @@
 
 #include "ActiveComponent.h"
 
-using namespace std;
-
 class DigitalSensor : public ActiveComponent {
     public :
         virtual bool isDetecting();

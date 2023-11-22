@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 class PIR final : public DigitalSensor {
 
     private :

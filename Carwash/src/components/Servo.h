@@ -3,8 +3,6 @@
 
 #include "ActiveComponent.h"
 
-using namespace std;
-
 class Servo : public ActiveComponent {
     public :
         virtual int getRotationDeg();

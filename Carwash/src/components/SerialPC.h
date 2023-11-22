@@ -4,8 +4,6 @@
 #include "SerialListener.h"
 #include <WString.h>
 
-using namespace std;
-
 class SerialPC {
     public:
         virtual void sendMessage(String);

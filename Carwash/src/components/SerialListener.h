@@ -3,8 +3,6 @@
 
 #include "SerialListener.h"
 
-using namespace std;
-
 class SerialListener {
     public :
         virtual void onMessageRecived();
