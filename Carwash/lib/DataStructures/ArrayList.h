@@ -1,7 +1,7 @@
 #ifndef _ARRAYLIST_
 #define _ARRAYLIST_
 template <typename T>
-class ArrayList {
+class ArrayList : public List<T> {
     private:
         T** dynamicVect;
     public:
@@ -12,6 +12,7 @@ class ArrayList {
         void clear();
         void remove(T* element);
         bool isPresent(T  * element);
+        Iterator<T> iterator() override;
         ~ArrayList()
 };
 #endif
