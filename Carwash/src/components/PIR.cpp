@@ -2,53 +2,36 @@
 #include "PinConfig.h"
 #include "ActiveSensor.h"
 #include "Scheduler.h"
+#include "PIR.h"
 
 #define CALIBRATION_TIME_SEC 5000
 
-using namespace std;
+PIR::PIR(bool p, int pin) : powered(p), PIN(pin) {
+    //Serve????
+    Serial.print("Calibrating sensor... ");
+    for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
+        Serial.print(".");
+        delay(1000);
+    }
+    Serial.println(" done");
+    Serial.println("PIR SENSOR READY.");
+    delay(50);
+}
 
-class PIR final : public DigitalSensor {
 
-    private :
-        bool powered;
-        int PIN;
-        Scheduler scheduler;
+bool PIR::isPowered()  {
+    return powered;
+}
 
-    public :
-        PIR(bool p, unsigned int pin) : powered(p), PIN(pin) {
-            //Serve????
-            Serial.print("Calibrating sensor... ");
-            for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
-                Serial.print(".");
-                delay(1000);
-            }
-            Serial.println(" done");
-            Serial.println("PIR SENSOR READY.");
-            delay(50);
-        }
+void PIR::setPowered(bool powered) {
+    this->powered = powered;
+}
 
-        PIR(Scheduler scheduler, bool p, int pin) : PIR(p, pin) {
-            this->scheduler = scheduler;
-        }
-
-        bool isPowered() override {
-            return powered;
-        }
-
-        void setPowered(bool powered) override {
-            this->powered = powered;
-        }
-
-        bool isDetecting() override {
-            int detected = digitalRead(this->PIN);
-            if (detected == HIGH){
-                Serial.println("detected!");
-                return true;
-            }
-            return false;
-        }
-
-        ~PIR() {
-            this->setPowered(false);
-        }
-};
+bool PIR::isDetecting() {
+    int detected = digitalRead(this->PIN);
+    if (detected == HIGH){
+        Serial.println("detected!");
+        return true;
+    }
+    return false;
+}

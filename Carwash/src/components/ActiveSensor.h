@@ -5,12 +5,13 @@
 
 class DigitalSensor : public ActiveComponent {
     public :
-        virtual bool isDetecting();
+        bool isDetecting();
+        
 };
 
 class AnalogSensor {
     public :
-        virtual double getDetection();
+        double getDetection();
 };
 
 #endif
