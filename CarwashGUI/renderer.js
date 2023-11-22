@@ -8,7 +8,7 @@ function initTopBarArea() {
 }
 
 function initBaseElements() {
-    initTopBarArea()
+    //initTopBarArea()
 }
 
 function generateView() {

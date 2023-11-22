@@ -1,9 +1,11 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
+
+var win
 
 // Creates a window using the main page
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -27,4 +29,22 @@ app.whenReady().then(() => {
 // Closes app when windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
+})
+
+ipcMain.on("application-quit", () => {
+    app.quit()
+})
+ipcMain.on("application-resize", () => {
+    if (win.isMaximized()) {
+        win.unmaximize()
+    } else {
+        win.maximize()
+    }
+})
+ipcMain.on("application-iconify", () => {
+    if (win.isMinimized()) {
+        win.unminimize()
+    } else {
+        win.minimize()
+    }
 })
