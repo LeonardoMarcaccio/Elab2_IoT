@@ -2,8 +2,6 @@
 #include "PinConfig.h"
 #include "ActiveSensor.h"
 
-using namespace std;
-
 class Sonar : public AnalogSensor {
 
     private :

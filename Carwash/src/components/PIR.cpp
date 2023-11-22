@@ -26,25 +26,18 @@ class PIR final : public DigitalSensor {
             Serial.println("PIR SENSOR READY.");
             delay(50);
         }
-        PIR(Scheduler sheduler, bool p, int pin) : powered(p), PIN(pin) {
-            //Serve????
-            Serial.print("Calibrating sensor... ");
-            for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
-                Serial.print(".");
-                delay(1000);
-            }
-            Serial.println(" done");
-            Serial.println("PIR SENSOR READY.");
-            delay(50);
+
+        PIR(Scheduler scheduler, bool p, int pin) : PIR(p, pin) {
+            this->scheduler = scheduler;
         }
-        
+
         bool isPowered() override {
             return powered;
-        };
+        }
 
         void setPowered(bool powered) override {
             this->powered = powered;
-        };
+        }
 
         bool isDetecting() override {
             int detected = digitalRead(this->PIN);
@@ -53,8 +46,9 @@ class PIR final : public DigitalSensor {
                 return true;
             }
             return false;
-        };
-    ~PIR() {
-        this->setPowered(false);
-    }
+        }
+
+        ~PIR() {
+            this->setPowered(false);
+        }
 };
