@@ -3,8 +3,6 @@
 
 #include "ActiveSensor.h"
 
-class PIR : public DigitalSensor {
-    virtual ~PIR();
-};
+class PIR : public DigitalSensor {};
 
 #endif
