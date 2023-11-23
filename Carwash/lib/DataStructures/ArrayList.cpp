@@ -25,7 +25,7 @@ void ArrayList<T>::add(T* element) {
         this->size++;
         T* tempVect = (T**) realloc(this->vectPtr, sizeof(T*)*(this->size));
         if (tempVect == nullptr) {
-            // FIXME: Something bad should happen here
+            throw 1;
         } else {
             this->vectPtr = tempVect;
         }
