@@ -4,7 +4,9 @@
 #include "SerialListener.h"
 
 class SerialListener {
-    public :
+    /*private:
+        void (*func)(char*[]);*/
+    public:
         virtual void onMessageRecived();
 };
 
