@@ -11,7 +11,7 @@ public:
     timeElapsed = 0;
   }
 
-  virtual void tick() = 0;
+  void tick();
 
   bool updateAndCheckTime(int basePeriod){
     timeElapsed += basePeriod;

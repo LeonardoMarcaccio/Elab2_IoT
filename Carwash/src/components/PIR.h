@@ -3,6 +3,12 @@
 
 #include "ActiveSensor.h"
 
-class PIR : public DigitalSensor {};
+class PIR : public DigitalSensor {
+    private :
+        bool powered;
+        int PIN;
+    public : 
+        PIR(bool pwr, int pin);
+};
 
 #endif

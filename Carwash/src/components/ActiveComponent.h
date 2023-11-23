@@ -3,8 +3,8 @@
 
 class ActiveComponent {
 public:
-    virtual bool isPowered();
-    virtual void setPowered(bool);
+    bool isPowered();
+    void setPowered(bool);
 };
 
 #endif

@@ -13,7 +13,7 @@ using namespace std;
 #define PIN_TEMPERATURE
 #define PIN_SERVO
 #define PIN_LCD
-#define PIN_PIR
+#define PIN_PIR 54
 
 #define PIN_SONAR
 
