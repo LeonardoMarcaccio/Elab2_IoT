@@ -10,7 +10,7 @@ CheckInTask::CheckInTask(int myPeriod, int timeElapsed) :
 {};
 
 void CheckInTask::Tick() {
-    if(this->pir->isDetecting() == true && this->current == SLEEPING) {
-        this->currentState = OPEN_GATE
+    if(this->current == AWAKE && this->pir->isDetecting() == true) {
+        this->currentState = CHECKIN;
     }
 }
