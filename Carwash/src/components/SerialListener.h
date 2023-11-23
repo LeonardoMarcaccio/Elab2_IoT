@@ -1,13 +1,15 @@
-#ifndef _SERVO_
-#define _SERVO_
+#ifndef _SERIALLISTENER_
+#define _SERIALLISTENER_
 
-#include "SerialListener.h"
+#include <Arduino.h>
+#include "SerialPCEvents.h"
 
 class SerialListener {
-    /*private:
-        void (*func)(char*[]);*/
+    private:
+        void (*observerFunc)(SerialPCEvents, String);
     public:
-        virtual void onMessageRecived();
+        SerialListener(void (*observerFunc)(SerialPCEvents, String));
+        void trigger(SerialPCEvents eventType, String message);
 };
 
 #endif
