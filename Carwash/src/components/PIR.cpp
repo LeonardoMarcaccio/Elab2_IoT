@@ -19,19 +19,19 @@ PIR::PIR(bool p, int pin) : powered(p), PIN(pin) {
 }
 
 
-bool PIR::isPowered()  {
+/*bool PIR::isPowered()  {
     return powered;
 }
 
 void PIR::setPowered(bool powered) {
     this->powered = powered;
-}
+}*/
 
-bool PIR::isDetecting() {
+/*bool PIR::isDetecting() {
     int detected = digitalRead(this->PIN);
     if (detected == HIGH){
         Serial.println("detected!");
         return true;
     }
     return false;
-}
+}*/

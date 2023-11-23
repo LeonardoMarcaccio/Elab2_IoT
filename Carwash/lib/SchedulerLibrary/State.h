@@ -11,6 +11,6 @@ enum State {
     EMERGENCY,  //TASK: Timer
     WASH_END,   //TASK: Open Gate 
     CHECKOUT    //TASK: PIR e Sonar Non detectano 
-}
+};
 
 #endif

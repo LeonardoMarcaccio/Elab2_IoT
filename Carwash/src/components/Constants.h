@@ -5,12 +5,22 @@
 
 namespace SerialPCConstants {
     // STRUCTURE
-    /**         * Prefix to be used at the start of every message.
+    /**
+     * Prefix to be used at the start of every message.
      * Only messages starting with this prefix should be considered.
     */
     static const String PREFIX = "CW";
+    /**
+     * Represents spacing to separate the various definitions.
+    */
     static const String SPACING = "-";
+    /**
+     * Represents the prefix for the Microcontroller.
+    */
     static const String MC_PREFIX = "MC";
+    /**
+     * Represents the prefix for che connected device.
+    */
     static const String PC_PREFIX = "PC";
 
     // CONTROL
