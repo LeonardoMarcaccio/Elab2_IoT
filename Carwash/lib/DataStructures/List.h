@@ -1,5 +1,7 @@
-#ifndef _ARRAYLIST_
-#define _ARRAYLIST_
+#ifndef _LIST_
+#define _LIST_
+
+#include <Iterator.h>
 
 template <typename T>
 class List {

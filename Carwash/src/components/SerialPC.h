@@ -2,13 +2,14 @@
 #define _SERIALPC_
 
 #include "SerialListener.h"
-#include <WString.h>
 
 class SerialPC {
+    private:
+        
     public:
-        virtual void sendMessage(String);
-        virtual void addListener(SerialListener);
-        virtual void removeListener(SerialListener);
+        void sendMessage(String);
+        void addListener(SerialListener);
+        void removeListener(SerialListener);
 };
 
 #endif

@@ -8,6 +8,7 @@ class Iterator {
         int position;
         E* vector;
     public:
+        Iterator(E* vecPtr, int length);
         bool hasNext();
         E* getNext();
 };
