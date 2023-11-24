@@ -1,6 +1,8 @@
 #ifndef __TASK__
 #define __TASK__
 
+#include "State.h"
+
 class Task {
 private:
   int myPeriod;

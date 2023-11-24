@@ -1,6 +1,6 @@
 #include "State.h"
 #include "OpenGateTask.h"
-#include "components/PIR.h"
+#include "../components/PIR.h"
 
 OpenGateTask::OpenGateTask(int myPeriod, int *checkInTime, PIR *pir) {
     this->init(myPeriod);

@@ -1,6 +1,6 @@
 #include "State.h"
 #include "CheckInTask.h"
-#include "components/PIR.h"
+#include "../components/PIR.h"
 
 CheckInTask::CheckInTask(int myPeriod, int *checkInTime, PIR *pir) {
     this->init(myPeriod);

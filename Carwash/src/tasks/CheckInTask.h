@@ -2,7 +2,7 @@
 #define __CHECKINTASK__
 
 #include "Task.h"
-#include "components\PIR.h"
+#include "../components/PIR.h"
 
 class CheckInTask : public Task {
 

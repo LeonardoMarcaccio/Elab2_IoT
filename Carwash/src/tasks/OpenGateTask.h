@@ -2,7 +2,7 @@
 #define __OPENGATETASK__
 
 #include "Task.h"
-#include "components\PIR.h"
+#include "../components/PIR.h"
 
 class OpenGateTask : public Task {
 
