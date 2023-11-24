@@ -2,8 +2,12 @@
 #define __TASK__
 
 class Task {
+private:
   int myPeriod;
   int timeElapsed;
+
+protected:
+  State *currentState;
   
 public:
   virtual void init(int period){
@@ -11,7 +15,7 @@ public:
     timeElapsed = 0;
   }
 
-  void tick();
+  virtual void tick();
 
   bool updateAndCheckTime(int basePeriod){
     timeElapsed += basePeriod;
