@@ -20,3 +20,8 @@ String SerialPCCommandFactory::faultMessage(String subject) {
         +SerialPCConstants::MC_PREFIX+SerialPCConstants::SPACING
         +SerialPCConstants::FAULT+SerialPCConstants::SPACING+subject;
 }
+
+String SerialPCCommandFactory::connectionCheck() {
+    return SerialPCConstants::PREFIX+SerialPCConstants::SPACING
+        +SerialPCConstants::CONFIRM;
+}

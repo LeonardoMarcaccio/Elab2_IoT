@@ -8,6 +8,7 @@ class SerialPCCommandFactory {
         String connectionMessage();
         String dataPacket(String subject, String value);
         String faultMessage(String subject);
+        String connectionCheck();
 };
 
 #endif

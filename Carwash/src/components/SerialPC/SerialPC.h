@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "SerialListener.h"
+#include "SerialPCCommandFactory.h"
 
 /**
  * Represents a computer that is connected via the serial line trough the
@@ -10,8 +11,12 @@
 */
 class SerialPC {
     private:
+        SerialPCCommandFactory* pcCommandFactory;
+        bool open = false;
         bool connected = false;
     public:
+        SerialPC();
+        ~SerialPC();
         /**
          * Checks if a device with the driver for this software is currently
          * active and connected.

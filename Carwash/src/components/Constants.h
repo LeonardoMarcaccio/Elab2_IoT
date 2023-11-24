@@ -14,6 +14,7 @@ namespace SerialPCConstants {
      * Represents spacing to separate the various definitions.
     */
     static const String SPACING = "-";
+    static const String ENDLINE = "\0";
     /**
      * Represents the prefix for the Microcontroller.
     */
@@ -29,10 +30,20 @@ namespace SerialPCConstants {
     static const String END = "CLOSE";
 
     // COMMANDS
+    /**
+     * Represents a problem on a specific component, should be followed by the component name.
+    */
     static const String FAULT = "FAULT";
+    /**
+     * Represents a data packet, should be followed by some custom data and
+     * a value separated by a spacer.
+    */
     static const String DATA = "DATA";
 
-    // DATA DESCRIPTORS
+    // COMPONENTS
+    /**
+     * Represents temperature sensor.
+    */
     static const String TMP = "TMP";
 };
 
