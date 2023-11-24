@@ -11,7 +11,7 @@ class CheckInTask : public Task {
         PIR *pir;
     
     public:
-        CheckInTask::CheckInTask(int myPeriod, int *checkInTime, PIR *pir);
+        CheckInTask(int myPeriod, int *checkInTime, PIR *pir);
         void tick();
 };
 

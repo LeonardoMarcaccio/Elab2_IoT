@@ -1,26 +1,18 @@
-#include "Arduino.h"
-#include "PinConfig.h"
-#include "ActiveSensor.h"
+#include "Sonar.h"
 
-class Sonar : public AnalogSensor {
+Sonar::Sonar(bool p, int pin) {
+    this->powered = p;
+    this->PINEcho = pin;
+}
 
-    private :
-        bool powered;
-        int PINEcho;
-        float maxDistance; //Non sono sicuro ritorni float
+bool Sonar::isPowered() {
+    return powered;
+}
 
-    public :
-        Sonar(bool p, int pin) : powered(p), PINEcho(pin) {}
-        
-        bool isPowered() {
-            return powered;
-        };
+void Sonar::setPowered(bool powered) {
+    this->powered = powered;
+}
 
-        void setPowered(bool powered) {
-            this->powered = powered;
-        };
-
-        double getDetection() {
-            
-        };
+double Sonar::getDetection() {
+    return 0;
 };
