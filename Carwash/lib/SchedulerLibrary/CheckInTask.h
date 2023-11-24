@@ -2,18 +2,17 @@
 #define __CHECKINTASK__
 
 #include "Task.h"
-#include "State.h"
-//#include "components\PIR.h"
+#include "components\PIR.h"
 
-/*class CheckInTask : public Task {
+class CheckInTask : public Task {
 
-    //private :
-        //PIR *pir;
-        //extern State currentState
+    private :
+        int *checkInTime;
+        PIR *pir;
     
     public:
-        CheckInTask::CheckInTask(int myPeriod, int timeElapsed);
-
-};*/
+        CheckInTask::CheckInTask(int myPeriod, int *checkInTime, PIR *pir);
+        void tick();
+};
 
 #endif
