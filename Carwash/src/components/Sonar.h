@@ -5,13 +5,14 @@
 
 class Sonar : public AnalogSensor {
 
-    private :
-        bool powered;                                       // TODO: RIMUOVI
-        int PINEcho;                                        // TODO: RIMUOVI
-        float maxDistance; //Non sono sicuro ritorni float  // TODO: RIMUOVI
-
-    public :
-        Sonar(bool p, int pin);
+    private:
+        bool powered;
+        int distance;
+        int triggerPin, echoPin;
+    public:
+        Sonar(int echoPin);
+        Sonar(int triggerPin, int echoPin);
+        Sonar(int triggerPin, int echoPin, bool powered);
         bool isPowered();
         void setPowered(bool powered);
         double getDetection();

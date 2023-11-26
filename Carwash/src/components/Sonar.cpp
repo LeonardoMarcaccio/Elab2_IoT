@@ -1,8 +1,16 @@
+#include <Arduino.h>
 #include "Sonar.h"
 
-Sonar::Sonar(bool p, int pin) {
-    this->powered = p;
-    this->PINEcho = pin;
+Sonar::Sonar(int echoPin) {
+    Sonar(triggerPin, echoPin, false);
+}
+Sonar::Sonar(int triggerPin, int echoPin) {
+    Sonar(triggerPin, echoPin, false);
+}
+Sonar::Sonar(int triggerPin, int echoPin, bool powered) {
+    this->triggerPin = triggerPin;
+    this->echoPin = echoPin;
+    this->powered = powered;
 }
 
 bool Sonar::isPowered() {
@@ -14,5 +22,5 @@ void Sonar::setPowered(bool powered) {
 }
 
 double Sonar::getDetection() {
-    return 0;
+    return analogRead(echoPin) / 29 / 2;        // in cm
 };
