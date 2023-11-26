@@ -1,7 +1,7 @@
 #ifndef _SONAR_
 #define _SONAR_
 
-#include "ActiveSensor.h"
+#include "AnalogSensor.h"
 
 class Sonar : public AnalogSensor {
 

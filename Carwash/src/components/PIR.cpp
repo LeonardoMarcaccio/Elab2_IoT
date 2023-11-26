@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "PinConfig.h"
-#include "ActiveSensor.h"
+#include "DigitalSensor.h"
 #include "Scheduler.h"
 #include "PIR.h"
 

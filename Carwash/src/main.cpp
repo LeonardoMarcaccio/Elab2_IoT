@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "components/PIR.h"
 #include "components/SerialPC/SerialPC.h"
+#include "components/Motors/Servo/Servo.h"
+#include "components/Motors/Servo/Gate/Gate.h"
 
 // put function declarations here:
 int myFunction(int, int);

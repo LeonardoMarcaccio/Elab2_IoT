@@ -1,7 +1,7 @@
 #ifndef _PIR_
 #define _PIR_
 
-#include "ActiveSensor.h"
+#include "DigitalSensor.h"
 
 class PIR : public DigitalSensor {
     private :
@@ -9,6 +9,7 @@ class PIR : public DigitalSensor {
         int PIN;
     public : 
         PIR(bool pwr, int pin);
+        bool isDetecting();
 };
 
 #endif
