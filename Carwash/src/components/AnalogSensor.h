@@ -5,7 +5,7 @@
 
 class AnalogSensor : public ActiveComponent {
     public :
-        virtual double getDetection();
+        virtual double getDetection() = 0;
 };
 
 #endif

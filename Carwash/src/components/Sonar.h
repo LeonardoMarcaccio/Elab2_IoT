@@ -6,9 +6,9 @@
 class Sonar : public AnalogSensor {
 
     private :
-        bool powered;
-        int PINEcho;
-        float maxDistance; //Non sono sicuro ritorni float
+        bool powered;                                       // TODO: RIMUOVI
+        int PINEcho;                                        // TODO: RIMUOVI
+        float maxDistance; //Non sono sicuro ritorni float  // TODO: RIMUOVI
 
     public :
         Sonar(bool p, int pin);
