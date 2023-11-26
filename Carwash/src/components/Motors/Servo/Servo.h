@@ -6,6 +6,7 @@
 class Servo : public ActiveComponent {
     private:
         int positivePin, negativePin, pwmPin;
+        float targetDeg = 0;
         bool simpleUse = false;
         bool powered = false;
     public:
@@ -14,10 +15,8 @@ class Servo : public ActiveComponent {
         Servo(int positivePin, int negativePin, int pwmPin, bool powered);
         bool isPowered();
         void setPowered(bool powered);
-        int getRotationDeg();
-        void setRotationDeg(int);
-        int getRotationSpeed();
-        void setRotationSpeed(float);
+        float getRotationDeg();
+        void setRotationDeg(int targetDeg);
 };
 
 #endif

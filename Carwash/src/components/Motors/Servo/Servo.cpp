@@ -20,13 +20,22 @@ Servo::Servo(int positivePin, int negativePin, int pwmPin, bool powered) {
     pinMode(this->pwmPin, OUTPUT);
 
     digitalWrite(positivePin, powered ? HIGH : LOW);
-    digitalWrite(pwmPin, powered ? HIGH : LOW);
 }
 
 bool Servo::isPowered() {
     return this->powered;
 }
 
-void Servo::setPowered(bool power) {
+void Servo::setPowered(bool powered) {
+    this->powered = simpleUse || powered;
+    digitalWrite(positivePin, this->powered ? HIGH : LOW);
+}
 
+float Servo::getRotationDeg() {
+    return this->targetDeg;
+}
+
+void Servo::setRotationDeg(int targetDeg) {
+    this->targetDeg = targetDeg;
+    analogWrite(this->pwmPin, this->targetDeg);
 }
