@@ -5,10 +5,10 @@
 
 class SerialPCCommandFactory {
     public:
-        String connectionMessage();
-        String dataPacket(String subject, String value);
-        String faultMessage(String subject);
-        String connectionCheck();
+        static String connectionMessage();
+        static String dataPacket(String subject, String value);
+        static String faultMessage(String subject);
+        static String connectionCheck();
 };
 
 #endif

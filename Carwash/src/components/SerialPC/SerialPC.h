@@ -11,7 +11,6 @@
 */
 class SerialPC {
     private:
-        SerialPCCommandFactory* pcCommandFactory;
         bool open = false;
         bool connected = false;
     public:

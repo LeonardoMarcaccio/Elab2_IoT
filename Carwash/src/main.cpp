@@ -1,6 +1,5 @@
 #include <Arduino.h>
-#include <components/PIR.h>
-#include "ArrayList.h"
+#include "components/PIR.h"
 #include "components/SerialPC/SerialPC.h"
 
 // put function declarations here:
