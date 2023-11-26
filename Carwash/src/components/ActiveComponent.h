@@ -1,10 +1,11 @@
-#ifndef _ACTIVECOMP_
-#define _ACTIVECOMP_
+#ifndef _ACTIVECOMPONENT_
+#define _ACTIVECOMPONENT_
 
 class ActiveComponent {
-public:
-    bool isPowered();
-    void setPowered(bool);
+    public:
+        ActiveComponent();
+        virtual bool isPowered() = 0;
+        virtual void setPowered(bool power) = 0;
 };
 
 #endif
