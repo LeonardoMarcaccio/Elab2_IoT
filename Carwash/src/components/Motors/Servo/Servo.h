@@ -1,7 +1,7 @@
 #ifndef _SERVO_
 #define _SERVO_
 
-#include "ActiveComponent.h"
+#include "../../ActiveComponent.h"
 
 class Servo : public ActiveComponent {
     public :
