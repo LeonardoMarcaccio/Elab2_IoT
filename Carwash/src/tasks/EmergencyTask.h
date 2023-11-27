@@ -2,7 +2,7 @@
 #define __EMERGENCYTASK__
 
 #include "Task.h"
-#include "..\components\SimpleLCD.h"
+#include "../components/SimpleLCD.h"
 
 class EmergencyTask : public Task {
 

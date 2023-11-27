@@ -4,14 +4,14 @@
 #include "Task.h"
 #include "../components/PIR.h"
 
-class CheckInTask : public Task {
+class CheckinTask : public Task {
 
     private :
         int *checkInTime;
         PIR *pir;
     
     public:
-        CheckInTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir);
+        CheckinTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir);
         void tick();
 };
 

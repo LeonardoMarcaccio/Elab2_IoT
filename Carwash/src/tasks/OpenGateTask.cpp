@@ -1,18 +1,19 @@
 #include "State.h"
 #include "OpenGateTask.h"
+#include "../components/Sonar.h"
 #include "../components/PIR.h"
 
-OpenGateTask::OpenGateTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir) {
+OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir) {
     this->init(myPeriod);
     this->currentState = currentState;
-    this->checkInTime = checkInTime;
+    this->sonar = sonar;
     this->pir = pir;
 };
 
 void OpenGateTask::tick() {
-    if(*(this->currentState) == CHECKIN /* &&
-            timeFunc() - *(this->checkInTime) >= N1 &&
+    if(*(this->currentState) == OPEN_GATE       /* &&
+            this->sonar->getDetection() < MIN_DIST &&
             this->pir->isDetecting() == true */ ) {
-        *(this->currentState) = OPEN_GATE;
+        *(this->currentState) = WASH;
     }
 }
