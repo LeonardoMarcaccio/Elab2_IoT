@@ -2,8 +2,9 @@
 #include "CheckInTask.h"
 #include "../components/PIR.h"
 
-CheckInTask::CheckInTask(int myPeriod, int *checkInTime, PIR *pir) {
+CheckInTask::CheckInTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir) {
     this->init(myPeriod);
+    this->currentState = currentState;
     this->checkInTime = checkInTime;
     this->pir = pir;
 };

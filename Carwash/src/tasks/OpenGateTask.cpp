@@ -2,8 +2,9 @@
 #include "OpenGateTask.h"
 #include "../components/PIR.h"
 
-OpenGateTask::OpenGateTask(int myPeriod, int *checkInTime, PIR *pir) {
+OpenGateTask::OpenGateTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir) {
     this->init(myPeriod);
+    this->currentState = currentState;
     this->checkInTime = checkInTime;
     this->pir = pir;
 };

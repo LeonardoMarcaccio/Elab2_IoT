@@ -11,7 +11,7 @@ class OpenGateTask : public Task {
         PIR *pir;
     
     public:
-        OpenGateTask(int myPeriod, int *checkInTime, PIR *pir);
+        OpenGateTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir);
         void tick();
 };
 

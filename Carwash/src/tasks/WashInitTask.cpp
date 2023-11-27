@@ -3,8 +3,9 @@
 #include "../components/Sonar.h"
 #include "../components/PIR.h"
 
-WashInitTask::WashInitTask(int myPeriod, Sonar *sonar, PIR *pir) {
+WashInitTask::WashInitTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir) {
     this->init(myPeriod);
+    this->currentState = currentState;
     this->sonar = sonar;
     this->pir = pir;
 };

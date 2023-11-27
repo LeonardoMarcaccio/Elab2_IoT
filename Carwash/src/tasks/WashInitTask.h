@@ -12,7 +12,7 @@ class WashInitTask : public Task {
         PIR *pir;
     
     public:
-        WashInitTask(int myPeriod, Sonar *sonar, PIR *pir);
+        WashInitTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir);
         void tick();
 };
 
