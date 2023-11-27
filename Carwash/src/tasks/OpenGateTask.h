@@ -10,6 +10,7 @@ class OpenGateTask : public Task {
     private :
         Sonar *sonar;
         PIR *pir;
+        long MIN_DIST;
     
     public:
         OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir);

@@ -7,11 +7,11 @@
 class StartupTask : public Task {
 
     private :
-        int *checkInTime;
+        unsigned long *checkInTime;
         PIR *pir;
     
     public:
-        StartupTask(int myPeriod, State *currentState, int *checkInTime, PIR *pir);
+        StartupTask(int myPeriod, State *currentState, unsigned long *checkInTime, PIR *pir);
         void tick();
 };
 
