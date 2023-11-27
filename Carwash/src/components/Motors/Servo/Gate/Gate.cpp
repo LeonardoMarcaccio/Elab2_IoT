@@ -17,4 +17,9 @@ bool Gate::isOpen() {
 
 void Gate::setOpen(bool open) {
     this->open = open;
+    if (this->open) {
+        this->setRotationDeg(endingDeg);
+    } else {
+        this->setRotationDeg(startingDeg);
+    }
 }
