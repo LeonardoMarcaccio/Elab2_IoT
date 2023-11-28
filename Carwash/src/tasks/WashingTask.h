@@ -10,7 +10,7 @@ class WashingTask : public Task {
         unsigned long interval;
         unsigned long overheatStart;
         unsigned long overheatInterval;
-        unsigned long emergencyIntervalCached;
+        unsigned long standardInterval;
         unsigned long *emergencyStart;
         unsigned long *emergencyInterval;
         bool emergencyFlag;

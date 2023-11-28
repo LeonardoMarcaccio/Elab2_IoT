@@ -6,7 +6,8 @@ WashingTask::WashingTask(int myPeriod, State *currentState, unsigned long *washS
     this->init(myPeriod);
     this->currentState = currentState;
     this->washStart = washStart;
-    this->interval = 0; //  random
+    this->standardInterval = 0; //  random
+    this->interval = this->standardInterval;
     this->overheatInterval = 4000;
     this->emergencyStart = emergencyStart;
     this->emergencyInterval = emergencyInterval;
@@ -18,14 +19,14 @@ void WashingTask::tick() {
     State currentState = *(this->currentState);
 
     if (this->emergencyFlag == true) {
-        this->emergencyIntervalCached += *(this->emergencyInterval);
+        this->interval += *(this->emergencyInterval);
         this->emergencyFlag = false;
     }
 
     if ((currentState == WASH || currentState == OVERHEAT) &&
-            millis() - *(this->washStart) >= this->interval + this->emergencyIntervalCached) {
+            millis() - *(this->washStart) >= this->interval) {
         *(this->currentState) = WASH_END;
-        this->emergencyIntervalCached = 0;
+        this->interval = this->standardInterval;
         return;
     }
 
