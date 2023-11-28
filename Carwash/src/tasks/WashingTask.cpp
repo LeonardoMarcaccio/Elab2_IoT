@@ -1,21 +1,34 @@
+#include <Arduino.h>
 #include "State.h"
 #include "WashingTask.h"
-#include "../components/Motors/Servo/Servo.h"
 
-WashingTask::WashingTask(int myPeriod, State *currentState, Servo *servo) {
+WashingTask::WashingTask(int myPeriod, State *currentState, unsigned long *washStartTime) {
     this->init(myPeriod);
     this->currentState = currentState;
-    this->servo = servo;
-    this->degree = 5;
+    this->washStartTime = washStartTime;
+    this->interval = 0; //  random
+    this->overheatInterval = 4000;
 };
 
 void WashingTask::tick() {
-    if (*(this->currentState) == OVERHEAT /*&& time*/) {
+
+    State currentState = *(this->currentState);
+
+    if ((currentState == WASH || currentState == OVERHEAT) &&
+            millis() - *(this->washStartTime) >= this->interval) {
+        *(this->currentState) = WASH_END;
+        return;
+    }
+
+    if (currentState == OVERHEAT &&
+            millis() - this->overheatStart >= this->overheatInterval) {
         *(this->currentState) = EMERGENCY;
     }
 
-    if (*(this->currentState) == WASH ||
-            *(this->currentState) == OVERHEAT) {
-        this->servo->setRotationDeg(this->degree);
+    if (/*  High Temperature && */
+            currentState == WASH) {
+        this->overheatStart = millis();
+        *(this->currentState) = OVERHEAT;
     }
+
 }

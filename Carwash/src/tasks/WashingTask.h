@@ -2,16 +2,17 @@
 #define __WASHINGTASK__
 
 #include "Task.h"
-#include "../components/Motors/Servo/Servo.h"
 
 class WashingTask : public Task {
 
     private :
-        int degree;
-        Servo *servo;
+        unsigned long *washStartTime;
+        unsigned long interval;
+        unsigned long overheatStart;
+        unsigned long overheatInterval;
     
     public:
-        WashingTask(int myPeriod, State *currentState, Servo *servo);
+        WashingTask(int myPeriod, State *currentState, unsigned long *washStartTime);
         void tick();
 };
 
