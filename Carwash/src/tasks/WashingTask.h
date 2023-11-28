@@ -6,13 +6,17 @@
 class WashingTask : public Task {
 
     private :
-        unsigned long *washStartTime;
+        unsigned long *washStart;
         unsigned long interval;
         unsigned long overheatStart;
         unsigned long overheatInterval;
+        unsigned long emergencyIntervalCached;
+        unsigned long *emergencyStart;
+        unsigned long *emergencyInterval;
+        bool emergencyFlag;
     
     public:
-        WashingTask(int myPeriod, State *currentState, unsigned long *washStartTime);
+        WashingTask(int myPeriod, State *currentState, unsigned long *washStart, unsigned long *emergencyStart, unsigned long *emergencyInterval);
         void tick();
 };
 

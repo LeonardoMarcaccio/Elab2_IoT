@@ -12,11 +12,12 @@ class OpenGateTask : public Task {
         Sonar *sonar;
         PIR *pir;
         Servo *servo;
+        unsigned long *washStartTime;
         long MIN_DIST;
         int degree;
     
     public:
-        OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Servo *servo);
+        OpenGateTask(int myPeriod, unsigned long *washStartTime, State *currentState, Sonar *sonar, PIR *pir, Servo *servo);
         void tick();
 };
 
