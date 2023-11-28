@@ -22,5 +22,5 @@ void Sonar::setPowered(bool powered) {
 }
 
 double Sonar::getDetection() {
-    return pulseIn(echoPin) / 29 / 2;        // in cm
+    return pulseIn(echoPin, HIGH) / 29 / 2;        // in cm
 };
