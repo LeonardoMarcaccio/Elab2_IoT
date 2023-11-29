@@ -3,7 +3,7 @@
 #include "EmergencyTask.h"
 #include "../components/SimpleLCD.h"
 
-EmergencyTask::EmergencyTask(int myPeriod, unsigned long *emergencyStart, unsigned long *emergencyInterval, State *currentState, SimpleLCD *lcd) {
+EmergencyTask::EmergencyTask(int myPeriod, State *currentState, SimpleLCD *lcd, unsigned long *emergencyStart, unsigned long *emergencyInterval) {
     this->init(myPeriod);
     this->currentState = currentState;
     this->lcd = lcd;

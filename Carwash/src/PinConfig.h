@@ -3,18 +3,17 @@
 
 #include "PinConfig.h"
 
-using namespace std;
+#define PIN_L1 0
+#define PIN_L2 0
+#define PIN_L3 0
+#define PIN_BUTTON 0
 
-#define PIN_L1
-#define PIN_L2
-#define PIN_L3
-#define PIN_BUTTON
+#define PIN_TEMPERATURE 0
+#define PIN_SERVO 0
+#define PIN_LCD 0
+#define PIN_PIR 0
+#define PIN_SONAR 0
 
-#define PIN_TEMPERATURE
-#define PIN_SERVO
-#define PIN_LCD
-#define PIN_PIR 54
-
-#define PIN_SONAR
+#define INT_PIN 0
 
 #endif

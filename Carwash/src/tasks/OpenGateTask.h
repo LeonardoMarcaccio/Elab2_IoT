@@ -17,7 +17,7 @@ class OpenGateTask : public Task {
         int degree;
     
     public:
-        OpenGateTask(int myPeriod, unsigned long *washStartTime, State *currentState, Sonar *sonar, PIR *pir, Servo *servo);
+        OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Servo *servo, unsigned long *washStartTime);
         void tick();
 };
 

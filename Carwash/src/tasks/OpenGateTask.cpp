@@ -5,7 +5,7 @@
 #include "../components/PIR.h"
 #include "../components/Motors/Servo/Servo.h"
 
-OpenGateTask::OpenGateTask(int myPeriod, unsigned long *washStartTime, State *currentState, Sonar *sonar, PIR *pir, Servo *servo) {
+OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Servo *servo, unsigned long *washStartTime) {
     this->init(myPeriod);
     this->currentState = currentState;
     this->sonar = sonar;
