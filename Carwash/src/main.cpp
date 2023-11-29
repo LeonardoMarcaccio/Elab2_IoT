@@ -55,6 +55,7 @@ void awake() {
   currentState = AWAKE;
 }
 #endif
+
 #ifdef DEBUG
 void setup() {
 
