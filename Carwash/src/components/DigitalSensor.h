@@ -5,7 +5,6 @@
 
 class DigitalSensor : public ActiveComponent {
     public :
-        DigitalSensor();
         virtual bool isDetecting();
 };
 
