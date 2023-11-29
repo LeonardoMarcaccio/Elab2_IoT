@@ -1,11 +1,10 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include "PinConfig.h"
 #include "SimpleLCD.h"
 #include <LiquidCrystal_I2C.h>
 
-SimpleLCD::SimpleLCD(String t) {
-    this->text = t;
-    this->lcd = new LiquidCrystal_I2C(0x27, 16, 2);
+SimpleLCD::SimpleLCD(uint8_t address, uint8_t rows, uint8_t columns) {
+    this->lcd = new LiquidCrystal_I2C(address, rows, columns);
     this->lcd->init();
     this->lcd->backlight();
 }

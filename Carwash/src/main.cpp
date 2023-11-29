@@ -14,6 +14,7 @@
 #include "components/SerialPC/SerialPC.h"
 #include "components/Motors/Servo/Servo.h"
 #include "components/Motors/Servo/Gate/Gate.h"
+#define DEBUG
 #ifndef DEBUG
 Scheduler sched;
 State currentState;
@@ -56,11 +57,19 @@ void awake() {
 }
 #endif
 #ifdef DEBUG
-void setup() {
-
+/**
+* Source code:
+* https://www.italiantechproject.it/tutorial-arduino/interfaccia-i2c-per-display-lcd
+*/
+#include <LiquidCrystal_I2C.h>
+SimpleLCD *lcd;
+ 
+void setup(){
+	lcd = new SimpleLCD(0x27, 20, 4);
 }
 
-void loop() {
-	
+void loop(){
+	lcd->setDisplayText("Si nil mondo ci fosse un po di bene e ognun si considerasse suo frahello, ci sarebbe meno male e meno pene");
 }
+
 #endif

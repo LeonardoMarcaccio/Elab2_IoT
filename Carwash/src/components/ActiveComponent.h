@@ -5,6 +5,7 @@ class ActiveComponent {
     public:
         virtual bool isPowered() = 0;
         virtual void setPowered(bool power) = 0;
+        virtual ~ActiveComponent() = default;
 };
 
 #endif

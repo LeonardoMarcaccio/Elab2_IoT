@@ -4,18 +4,17 @@
 #include "ActiveComponent.h"
 #include <LiquidCrystal_I2C.h>
 
-using namespace std;
-
 class SimpleLCD : public ActiveComponent {
 
     private :
         String text;
+        bool powered;
         LiquidCrystal_I2C *lcd;
 
     public:
-        SimpleLCD(String text);
+        SimpleLCD(uint8_t address, uint8_t rows, uint8_t columns);
         bool isPowered();
-        void setPowered(bool pwr);
+        void setPowered(bool powered);
         void setDisplayText(String text);
         String getDisplayText();
         void clear();
