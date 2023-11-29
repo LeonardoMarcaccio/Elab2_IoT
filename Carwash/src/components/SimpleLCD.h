@@ -2,13 +2,23 @@
 #define _SIMPLELCD_
 
 #include "ActiveComponent.h"
-#include <WString.h>
+#include <LiquidCrystal_I2C.h>
+
+using namespace std;
 
 class SimpleLCD : public ActiveComponent {
+
+    private :
+        String text;
+        LiquidCrystal_I2C *lcd;
+
     public:
-        virtual void setDisplayText(String);
-        virtual String getDisplayText();
-        virtual void clear();
+        SimpleLCD(String text);
+        bool isPowered();
+        void setPowered(bool pwr);
+        void setDisplayText(String text);
+        String getDisplayText();
+        void clear();
 };
 
 #endif

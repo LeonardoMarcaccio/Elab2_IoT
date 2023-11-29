@@ -12,7 +12,7 @@ class CheckinTask : public Task {
         unsigned long N1;
     
     public:
-        CheckinTask(int myPeriod, State *currentState, unsigned long *checkInTime, PIR *pir);
+        CheckinTask(int myPeriod, State *currentState, PIR *pir, unsigned long *checkInTime);
         void tick();
 };
 

@@ -5,10 +5,12 @@
 
 class PIR : public DigitalSensor {
     private :
-        bool powered;
         int PIN;
+        bool powered;
     public : 
-        PIR(bool pwr, int pin);
+        PIR(int pin, bool pwr);
+        bool isPowered();
+        void setPowered(bool pwr);
         bool isDetecting();
 };
 
