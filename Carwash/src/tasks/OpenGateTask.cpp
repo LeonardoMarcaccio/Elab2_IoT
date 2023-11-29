@@ -24,6 +24,7 @@ void OpenGateTask::tick() {
             this->pir->isDetecting() == true) {
             *(this->currentState) = WASH;
             *(this->washStartTime) = millis();
+            this->servo->setRotationDeg(0);
         }
     }
 }
