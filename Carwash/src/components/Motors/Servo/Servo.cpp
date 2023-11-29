@@ -37,5 +37,5 @@ float Servo::getRotationDeg() {
 
 void Servo::setRotationDeg(int targetDeg) {
     this->targetDeg = targetDeg;
-    analogWrite(this->pwmPin, this->targetDeg);
+    analogWrite(this->pwmPin, map(targetDeg, 0, 180, 0, 180));
 }
