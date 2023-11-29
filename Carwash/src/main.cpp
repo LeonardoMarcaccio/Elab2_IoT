@@ -14,7 +14,7 @@
 #include "components/SerialPC/SerialPC.h"
 #include "components/Motors/Servo/Servo.h"
 #include "components/Motors/Servo/Gate/Gate.h"
-
+#ifndef DEBUG
 Scheduler sched;
 State currentState;
 
@@ -22,28 +22,28 @@ State currentState;
 void awake();
 
 void setup() {
-  // put your setup code here, to run once:
-  currentState = SLEEPING;
-  attachInterrupt(INT_PIN, awake, RISING);
+	// put your setup code here, to run once:
+	currentState = SLEEPING;
+	attachInterrupt(INT_PIN, awake, RISING);
 
-  Sonar *sonar = new Sonar(PIN_TRIG, PIN_ECHO, true);
-  PIR *pir = new PIR(PIN_PIR, true);
-  Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
-  SimpleLCD *lcd = new SimpleLCD("sooos");
+	Sonar *sonar = new Sonar(PIN_TRIG, PIN_ECHO, true);
+	PIR *pir = new PIR(PIN_PIR, true);
+	Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
+	SimpleLCD *lcd = new SimpleLCD("sooos");
 
-  Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, NULL);
-  Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, NULL);
-  Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, NULL);
-  Task *washing = new WashingTask(WASH_PERIOD, &currentState, NULL, NULL, NULL);
-  Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, NULL, NULL);
-  Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, gate);
+	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, NULL);
+	Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, NULL);
+	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, NULL);
+	Task *washing = new WashingTask(WASH_PERIOD, &currentState, NULL, NULL, NULL);
+	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, NULL, NULL);
+	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, gate);
 
-  sched.addTask(startUp);
-  sched.addTask(checkIn);
-  sched.addTask(openGate);
-  sched.addTask(washing);
-  sched.addTask(emergency);
-  sched.addTask(checkOut);
+	sched.addTask(startUp);
+	sched.addTask(checkIn);
+	sched.addTask(openGate);
+	sched.addTask(washing);
+	sched.addTask(emergency);
+	sched.addTask(checkOut);
 }
 
 void loop() {
@@ -54,3 +54,13 @@ void loop() {
 void awake() {
   currentState = AWAKE;
 }
+#endif
+#ifdef DEBUG
+void setup() {
+
+}
+
+void loop() {
+	
+}
+#endif
