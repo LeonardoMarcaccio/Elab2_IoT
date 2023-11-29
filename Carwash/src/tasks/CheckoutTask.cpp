@@ -31,5 +31,6 @@ void CheckoutTask::tick() {
     if (currentState == CHECKOUT &&
         millis() - this->checkOutTime >= this->interval) {
             *(this->currentState) = SLEEPING;
+            interrupts();
     }
 }

@@ -12,6 +12,7 @@ StartupTask::StartupTask(int myPeriod, State *currentState, unsigned long *check
 
 void StartupTask::tick() {
     if(*(this->currentState) == AWAKE && this->pir->isDetecting() == true) {
+        noInterrupts();
         *(this->currentState) = CHECKIN;
         *(this->checkInTime) = millis();
     }
