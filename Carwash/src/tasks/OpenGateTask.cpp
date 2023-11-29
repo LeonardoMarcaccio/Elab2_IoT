@@ -3,28 +3,27 @@
 #include "OpenGateTask.h"
 #include "../components/Sonar.h"
 #include "../components/PIR.h"
-#include "../components/Motors/Servo/Servo.h"
+#include "../components/Motors/Servo/Gate/Gate.h"
 
-OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Servo *servo, unsigned long *washStartTime) {
+OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, unsigned long *washStartTime) {
     this->init(myPeriod);
     this->currentState = currentState;
     this->sonar = sonar;
     this->pir = pir;
-    this->servo = servo;
+    this->gate = gate;
     this->washStartTime = washStartTime;
     this->MIN_DIST = 40;
-    this->degree = 90;
 };
 
 void OpenGateTask::tick() {
     if (*(this->currentState) == OPEN_GATE) {
-        this->servo->setRotationDeg(this->degree);
+        this->gate->setOpen(true);
 
         if (this->sonar->getDetection() < this->MIN_DIST &&
             this->pir->isDetecting() == true) {
             *(this->currentState) = WASH;
             *(this->washStartTime) = millis();
-            this->servo->setRotationDeg(0);
+            this->gate->setOpen(false);
         }
     }
 }
