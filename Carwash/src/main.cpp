@@ -28,16 +28,15 @@ void setup() {
 
   Sonar *sonar = new Sonar(PIN_TRIG, PIN_ECHO, true);
   PIR *pir = new PIR(PIN_PIR, true);
-  Servo *servo = new Servo(PIN_SERVO_P, PIN_SERVO_N, PIN_SERVO_PWM);
-  //Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
+  Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
   SimpleLCD *lcd = new SimpleLCD("sooos");
 
   Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, NULL);
   Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, NULL);
-  Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, servo, NULL);
+  Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, NULL);
   Task *washing = new WashingTask(WASH_PERIOD, &currentState, NULL, NULL, NULL);
   Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, NULL, NULL);
-  Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, servo);
+  Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, gate);
 
   sched.addTask(startUp);
   sched.addTask(checkIn);

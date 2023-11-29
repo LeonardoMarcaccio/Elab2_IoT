@@ -4,7 +4,7 @@
 #include "Task.h"
 #include "../components/Sonar.h"
 #include "../components/PIR.h"
-#include "../components/Motors/Servo/Servo.h"
+#include "../components/Motors/Servo/Gate/Gate.h"
 
 class CheckoutTask : public Task {
 
@@ -12,13 +12,12 @@ class CheckoutTask : public Task {
         unsigned long checkOutTime;
         unsigned long interval;
         double dist;
-        int degree;
         Sonar *sonar;
         PIR *pir;
-        Servo *servo;
+        Gate *gate;
     
     public:
-        CheckoutTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Servo *servo);
+        CheckoutTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate);
         void tick();
 };
 
