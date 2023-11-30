@@ -16,7 +16,7 @@ EmergencyTask::EmergencyTask(int myPeriod, State *currentState, SimpleLCD *lcd, 
 void EmergencyTask::tick() {
     if (*(this->currentState) == EMERGENCY) {
         this->lcd->setDisplayText("Detected a problem - Please Wait");
-        if (false/*  Mantainance over  */) {
+        if (this->button->isPowered()) {
             *(this->currentState) = WASH;
             *(this->emergencyInterval) = millis() - *(this->emergencyStart);
             this->lcd->clear();

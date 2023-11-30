@@ -6,7 +6,9 @@
 #define PIN_L1 0
 #define PIN_L2 0
 #define PIN_L3 0
-#define PIN_BUTTON 0
+
+#define PIN_BUTTON_START 0
+#define PIN_BUTTON_EMERGENCY 0
 
 #define PIN_TEMPERATURE 0
 
