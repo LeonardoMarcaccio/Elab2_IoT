@@ -7,12 +7,12 @@ class Sonar : public AnalogSensor {
 
     private:
         bool powered;
-        int distance;
-        int triggerPin, echoPin;
+        int pinTrig, pinEcho;
+        float vs;
     public:
         Sonar(int echoPin);
-        Sonar(int triggerPin, int echoPin);
-        Sonar(int triggerPin, int echoPin, bool powered);
+        Sonar(int pinTrig, int pinEcho);
+        Sonar(int pinTrig, int pinEcho, bool powered);
         bool isPowered();
         void setPowered(bool powered);
         double getDetection();
