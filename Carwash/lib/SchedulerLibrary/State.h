@@ -6,6 +6,7 @@ enum State {
     AWAKE,      //TASK: DONE
     CHECKIN,    //TASK: Timer
     OPEN_GATE,  //TASK: TODO
+    READY,
     WASH,  //TASK: PIR Non detecta, Sonar in range
     OVERHEAT,   //TASK: Termometro
     EMERGENCY,  //TASK: Timer

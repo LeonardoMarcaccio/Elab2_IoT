@@ -43,4 +43,6 @@ void WashingTask::tick() {
         *(this->currentState) = OVERHEAT;
     }
 
+    /*  Ricorda che deve uscire da OVERHEAT se la temperatura si riabbassa  */
+
 }

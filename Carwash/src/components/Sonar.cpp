@@ -1,9 +1,6 @@
 #include <Arduino.h>
 #include "Sonar.h"
 
-Sonar::Sonar(int pinEcho) {
-    Sonar(pinTrig, pinEcho, false);
-}
 Sonar::Sonar(int pinTrig, int pinEcho) {
     Sonar(pinTrig, pinEcho, false);
 }

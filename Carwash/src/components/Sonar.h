@@ -10,7 +10,6 @@ class Sonar : public AnalogSensor {
         int pinTrig, pinEcho;
         float vs;
     public:
-        Sonar(int echoPin);
         Sonar(int pinTrig, int pinEcho);
         Sonar(int pinTrig, int pinEcho, bool powered);
         bool isPowered();
