@@ -1,10 +1,13 @@
 #include <Arduino.h>
 #include "State.h"
 #include "WashingTask.h"
+#include "../components/Thermometer.h"
 
-WashingTask::WashingTask(int myPeriod, State *currentState, unsigned long *washStart, unsigned long *emergencyStart, unsigned long *emergencyInterval) {
+WashingTask::WashingTask(int myPeriod, State *currentState, Thermometer *therm, unsigned long *washStart, unsigned long *emergencyStart, unsigned long *emergencyInterval) {
     this->init(myPeriod);
     this->currentState = currentState;
+    this->therm = therm;
+    this->MAXTEMP = 40;
     this->washStart = washStart;
     this->standardInterval = 0; //  random
     this->interval = this->standardInterval;
@@ -37,12 +40,14 @@ void WashingTask::tick() {
         this->emergencyFlag = true;
     }
 
-    if (/*  High Temperature && */
-            currentState == WASH) {
+    if (currentState == WASH &&
+            this->therm->getDetection() > this->MAXTEMP) {
         this->overheatStart = millis();
         *(this->currentState) = OVERHEAT;
     }
 
-    /*  Ricorda che deve uscire da OVERHEAT se la temperatura si riabbassa  */
-
+    if (currentState == OVERHEAT &&
+            this->therm->getDetection() <= this->MAXTEMP) {
+        *(this->currentState) = WASH;
+    }
 }
