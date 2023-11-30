@@ -9,6 +9,7 @@
 #include "tasks/WashingTask.h"
 #include "tasks/EmergencyTask.h"
 #include "tasks/CheckoutTask.h"
+#include "components/Led.h"
 #include "components/PIR.h"
 #include "components/SimpleLCD.h"
 #include "components/SerialPC/SerialPC.h"
@@ -27,6 +28,9 @@ void setup() {
 	currentState = SLEEPING;
 	attachInterrupt(INT_PIN, awake, RISING);
 
+	Led *l1 = new Led(PIN_L1);
+	Led *l2 = new Led(PIN_L2);
+	Led *l3 = new Led(PIN_L3);
 	Sonar *sonar = new Sonar(PIN_TRIG, PIN_ECHO, true);
 	PIR *pir = new PIR(PIN_PIR, true);
 	Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
