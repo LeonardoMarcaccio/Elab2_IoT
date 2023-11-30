@@ -36,7 +36,7 @@ void setup() {
 	Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
 	SimpleLCD *lcd = new SimpleLCD("sooos");
 
-	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, NULL);
+	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, l1, lcd, NULL);
 	Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, NULL);
 	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, NULL);
 	Task *washing = new WashingTask(WASH_PERIOD, &currentState, NULL, NULL, NULL);
