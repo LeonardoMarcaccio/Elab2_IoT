@@ -3,7 +3,6 @@
 
 Button::Button(int pin) {
   this->pin = pin;
-  this->powered = false;
   pinMode(pin, INPUT);
 }
 
