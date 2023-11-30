@@ -38,7 +38,7 @@ void setup() {
 
 	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, l1, lcd, NULL);
 	Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, NULL);
-	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, NULL);
+	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, l2, lcd, NULL);
 	Task *washing = new WashingTask(WASH_PERIOD, &currentState, NULL, NULL, NULL);
 	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, NULL, NULL);
 	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, gate);
