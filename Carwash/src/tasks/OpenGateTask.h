@@ -16,11 +16,10 @@ class OpenGateTask : public Task {
         Gate *gate;
         Led *l2;
         SimpleLCD *lcd;
-        unsigned long *washStartTime;
         long MIN_DIST;
     
     public:
-        OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd, unsigned long *washStartTime);
+        OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd);
         void tick();
 };
 

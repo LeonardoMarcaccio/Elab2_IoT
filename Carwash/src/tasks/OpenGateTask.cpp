@@ -7,7 +7,7 @@
 #include "../components/Led.h"
 #include "../components/SimpleLCD.h"
 
-OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd, unsigned long *washStartTime) {
+OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd) {
     this->init(myPeriod);
     this->currentState = currentState;
     this->sonar = sonar;
@@ -15,7 +15,6 @@ OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR 
     this->gate = gate;
     this->l2 = l2;
     this->lcd = lcd;
-    this->washStartTime = washStartTime;
     this->MIN_DIST = 40;
 };
 
@@ -27,9 +26,10 @@ void OpenGateTask::tick() {
 
         if (this->sonar->getDetection() < this->MIN_DIST &&
             this->pir->isDetecting() == true) {
-            *(this->currentState) = WASH;
-            *(this->washStartTime) = millis();
+            *(this->currentState) = READY;
             this->gate->setOpen(false);
+            this->lcd->setDisplayText("Ready to Wash");
+            this->l2->setPowered(true);
         }
     }
 }
