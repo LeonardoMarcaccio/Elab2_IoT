@@ -2,10 +2,13 @@
 #define __WASHINGTASK__
 
 #include "Task.h"
+#include "../components/Thermometer.h"
 
 class WashingTask : public Task {
 
     private :
+        Thermometer *therm;
+        double MAXTEMP;
         unsigned long *washStart;
         unsigned long interval;
         unsigned long overheatStart;
@@ -16,7 +19,7 @@ class WashingTask : public Task {
         bool emergencyFlag;
     
     public:
-        WashingTask(int myPeriod, State *currentState, unsigned long *washStart, unsigned long *emergencyStart, unsigned long *emergencyInterval);
+        WashingTask(int myPeriod, State *currentState, Thermometer *therm, unsigned long *washStart, unsigned long *emergencyStart, unsigned long *emergencyInterval);
         void tick();
 };
 

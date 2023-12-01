@@ -1,16 +1,14 @@
 #include <Arduino.h>
 #include "Sonar.h"
 
-Sonar::Sonar(int echoPin) {
-    Sonar(triggerPin, echoPin, false);
-}
-Sonar::Sonar(int triggerPin, int echoPin) {
-    Sonar(triggerPin, echoPin, false);
+Sonar::Sonar(int pinTrig, int pinEcho) {
+    Sonar(pinTrig, pinEcho, false);
 }
 Sonar::Sonar(int triggerPin, int echoPin, bool powered) {
-    this->triggerPin = triggerPin;
-    this->echoPin = echoPin;
+    this->pinTrig = triggerPin;
+    this->pinEcho = echoPin;
     this->powered = powered;
+    this->vs = 331.45 + 0.62 * 20;
 }
 
 bool Sonar::isPowered() {
@@ -22,5 +20,15 @@ void Sonar::setPowered(bool powered) {
 }
 
 double Sonar::getDetection() {
-    return pulseIn(echoPin, HIGH) / 29 / 2;        // in cm
+    digitalWrite(this->pinTrig,LOW);
+    delayMicroseconds(3);
+    digitalWrite(this->pinTrig,HIGH);
+    delayMicroseconds(5);
+    digitalWrite(this->pinTrig,LOW);
+
+    /* Receiving the echo */
+
+    float tUS = pulseIn(this->pinEcho, HIGH);
+    float t = tUS / 1000.0 / 1000.0 / 2;
+    return t*vs;
 };
