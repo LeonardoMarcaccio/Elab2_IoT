@@ -42,8 +42,15 @@ const appInteraction = {
 }
 
 const comInteraction = {
-	SerialPort: SerialPort,
-	ReadlineParser: ReadlineParser
+	listConnectedDevices: () => {
+		return SerialPort.list()
+	},
+	createSerialPort: (pathToPort, baudRate) => {
+		return new SerialPort({pathToPort, baudRate})
+	},
+	createParser: (delimiter) => {
+		return new ReadlineParser(delimiter)
+	}
 }
 
 contextBridge.exposeInMainWorld("internalApis", {

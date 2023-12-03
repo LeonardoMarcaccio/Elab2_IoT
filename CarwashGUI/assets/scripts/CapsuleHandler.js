@@ -10,7 +10,7 @@ class CapsuleManager {
     }
 
     init(docToInjectTo) {
-        docToInjectTo.appendChild(nodevar)
+        docToInjectTo.appendChild(this.nodevar)
     }
 
     registerCapsule(capsule) {
@@ -31,10 +31,12 @@ class Capsule {
 
         let boxTopBar = document.createElement('div')
         boxTopBar.className = 'ContentBoxTopBar'
+        boxTopBar.innerHTML = this.title
         let boxContent = document.createElement('div')
-        boxTopBar.className = 'ContentBoxBody'
+        boxContent.className = 'ContentBoxBody'
+        boxContent.innerHTML = this.content
 
-        this.nodevar.appendChild(boxTopBar)
+        this.nodevar.append(boxTopBar)
         this.nodevar.appendChild(boxContent)
     }
 

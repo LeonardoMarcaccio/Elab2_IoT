@@ -39,7 +39,7 @@ header {
 }
 .ContentBoxTopBar {
     display: flex;
-    justify-content: right;
+    justify-content: left;
     flex-direction: row;
     max-height: 18%;
 }

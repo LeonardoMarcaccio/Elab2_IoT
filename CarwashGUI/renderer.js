@@ -1,5 +1,7 @@
 document.body.onload = () => initGUI()
 
+let manager
+
 function initTopBarArea() {
     let nelem = document.createElement('div')
     nelem.innerHTML =
@@ -9,14 +11,27 @@ function initTopBarArea() {
 
 function initBaseElements() {
     //initTopBarArea()
+	manager = new CapsuleManager()
+    manager.init(document.body)
 }
 
 function generateView() {
-    
+	let tempCapsule = new Capsule(0, 'ArduinoCOMPort', 'fakecontent')
+	manager.registerCapsule(tempCapsule)
+}
+
+async function initArduinoComms() {
+	let promiseList = window.internalApis.comInteraction.listConnectedDevices()
+	var deviceList = await promiseList
+	console.log(deviceList)
+	if (deviceList[0].vendorId == "2341") {
+		console.log("ARDUINO FOUND! on "+deviceList[0].path+" !!!")
+	}
 }
 
 function initGUI() {
     initBaseElements()
+	initArduinoComms()
     generateView()
 }
 /*//const SerialPort = window.internalApis.hwInteraction.SerialPort
