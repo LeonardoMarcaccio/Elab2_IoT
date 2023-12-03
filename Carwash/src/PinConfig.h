@@ -1,3 +1,4 @@
+
 #ifndef _PINCONFIG_
 #define _PINCONFIG_
 
@@ -24,10 +25,8 @@
 
 #define PIN_PIR 4
 
-#define PIN_TRIG 6
-#define PIN_ECHO 6
-
-#define INT_PIN 6
+#define PIN_TRIG 2
+#define PIN_ECHO A0
 
 #define I2C_LCD_ADDR 0x27
 #define I2C_LCD_COLS 20

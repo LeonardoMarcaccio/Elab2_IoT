@@ -2,7 +2,7 @@
 #define __OPENGATETASK__
 
 #include "Task.h"
-#include "../components/Sonar.h"
+#include "../components/DistanceSensor.h"
 #include "../components/PIR.h"
 #include "../components/Motors/Servo/Gate/Gate.h"
 #include "../components/Led.h"
@@ -11,16 +11,16 @@
 class OpenGateTask : public Task {
 
     private :
-        Sonar *sonar;
+        DistanceSensor *sonar;
         PIR *pir;
         Gate *gate;
         Led *l2;
         SimpleLCD *lcd;
-        long MIN_DIST;
+        float MIN_DIST;
         bool flag;
     
     public:
-        OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd);
+        OpenGateTask(int myPeriod, State *currentState, DistanceSensor *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd);
         void tick();
 };
 

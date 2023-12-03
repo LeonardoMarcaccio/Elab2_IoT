@@ -3,11 +3,11 @@
 #include "CheckoutTask.h"
 #include "../components/Led.h"
 #include "../components/SimpleLCD.h"
-#include "../components/Sonar.h"
+#include "../components/DistanceSensor.h"
 #include "../components/PIR.h"
 #include "../components/Motors/Servo/Gate/Gate.h"
 
-CheckoutTask::CheckoutTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, Led *l3, SimpleLCD *lcd) {
+CheckoutTask::CheckoutTask(int myPeriod, State *currentState, DistanceSensor *sonar, PIR *pir, Gate *gate, Led *l2, Led *l3, SimpleLCD *lcd) {
     this->init(myPeriod);
     this->currentState = currentState;
     this->sonar = sonar;
@@ -17,7 +17,7 @@ CheckoutTask::CheckoutTask(int myPeriod, State *currentState, Sonar *sonar, PIR 
     this->l3 = l3;
     this->lcd = lcd;
     this->interval = 4000;
-    this->dist = 10;
+    this->dist = 0.1;
 };
 
 void CheckoutTask::tick() {
@@ -30,7 +30,7 @@ void CheckoutTask::tick() {
         this->l3->setPowered(true);
         this->lcd->setDisplayText("Washing complete, you can leave the area");
 
-        if (!this->pir->isDetecting() && this->sonar->getDetection() >= this->dist) {
+        if (!this->pir->isDetecting() && this->sonar->getDistance() >= this->dist) {
             *(this->currentState) = CHECKOUT;
             this->gate->setOpen(false);
             this->checkOutTime = millis();

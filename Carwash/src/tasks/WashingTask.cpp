@@ -9,7 +9,7 @@ WashingTask::WashingTask(int myPeriod, State *currentState, Thermometer *therm, 
     this->therm = therm;
     this->MAXTEMP = 40;
     this->washStart = washStart;
-    this->standardInterval = 0; //  random
+    this->standardInterval = 5000; //  random
     this->interval = this->standardInterval;
     this->overheatInterval = 4000;
     this->emergencyStart = emergencyStart;
@@ -30,6 +30,7 @@ void WashingTask::tick() {
             millis() - *(this->washStart) >= this->interval) {
         *(this->currentState) = WASH_END;
         this->interval = this->standardInterval;
+        Serial.println("fejv jkndkmcnhiswoftinwgfjdi");
         return;
     }
 

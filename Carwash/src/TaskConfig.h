@@ -3,6 +3,7 @@
 
 #include "TaskConfig.h"
 
+#define SLEEP_PERIOD 500
 #define STARTUP_PERIOD 500
 #define CHECKIN_PERIOD 500
 #define OPEN_PERIOD 2000
