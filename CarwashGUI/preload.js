@@ -1,4 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
+const SerialPort = require('serialport');
 const fs = require('fs')
 
 /**
@@ -39,7 +40,12 @@ const appInteraction = {
 	interProcessRenderer: ipcRenderer
 }
 
+const hwInteraction = {
+	SerialPort: SerialPort
+}
+
 contextBridge.exposeInMainWorld("internalApis", {
 	fsInteraction: fsInteraction,
-	appInteraction: appInteraction
+	appInteraction: appInteraction,
+	hwInteraction: hwInteraction
 })

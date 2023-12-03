@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/LeonardoMarcaccio/Elab2_IoT#readme",
   "devDependencies": {
-    "electron": "^27.0.4"
+    "electron": "^27.0.4",
+    "serialport": "^12.0.0"
   }
 }
