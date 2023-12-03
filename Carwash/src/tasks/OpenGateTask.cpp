@@ -16,12 +16,13 @@ OpenGateTask::OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR 
     this->l2 = l2;
     this->lcd = lcd;
     this->flag = false;
-    this->MIN_DIST = 40;
+    this->MIN_DIST = 5;
 };
 
 void OpenGateTask::tick() {
     if (*(this->currentState) == OPEN_GATE) {
         this->l2->setPowered(!this->l2->isPowered());
+        //Serial.println("Blink : " + millis());
 
         if (!this->flag) {
             this->gate->setOpen(true);
@@ -30,7 +31,7 @@ void OpenGateTask::tick() {
         }
 
         if (this->sonar->getDetection() < this->MIN_DIST &&
-            this->pir->isDetecting() == true) {
+            this->pir->isDetecting() == false) {
             *(this->currentState) = READY;
             this->gate->setOpen(false);
             this->lcd->setDisplayText("Ready to Wash");

@@ -1,14 +1,11 @@
 #ifndef _SONAR_
 #define _SONAR_
 
-#include "AnalogSensor.h"
-
-class Sonar : public AnalogSensor {
-
+class Sonar {
     private:
-        bool powered;
-        int pinTrig, pinEcho;
-        float vs;
+        int pinTrig = 0;
+        int pinEcho = 0;
+        bool powered = false;
     public:
         Sonar(int pinTrig, int pinEcho);
         Sonar(int pinTrig, int pinEcho, bool powered);

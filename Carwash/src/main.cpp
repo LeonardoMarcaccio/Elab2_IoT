@@ -18,7 +18,8 @@
 #include "components/SerialPC/SerialPC.h"
 #include "components/Motors/Servo/Servo.h"
 #include "components/Motors/Servo/Gate/Gate.h"
-//#define DEBUG
+#include "components/Sonar.h"
+#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
@@ -96,18 +97,29 @@ void awake() {
 #include <LiquidCrystal_I2C.h>
 #include "LoadingBar.h"
 #include "StringUtil.h"
+#include "components/SonarSensor.h"
 
 #define PIR_PIN 4
 #define CALIBRATION_TIME_SEC 30
 
 SimpleLCD *lcd;
 LoadingBar* bar;
+SonarSensor* sonar;
+const int trigPin = 2;
+const int echoPin = A0;
+
+float duration, distance;
 
 void setup(){
-	
+	pinMode(trigPin, OUTPUT);
+  	pinMode(echoPin, INPUT);
+  	Serial.begin(9600);
+	sonar = new SonarSensor(trigPin, echoPin);
+	//pinMode(A0, INPUT);
+	//pinMode(2, OUTPUT);
+	//sonar = new Sonar(2, A0);
 	/*lcd = new SimpleLCD(0x27, 4, 20);
 	bar = new LoadingBar(0, 0, 100, 20);
-	Serial.begin(9600);
 	lcd->setDisplayText("Washing complete,   you can leave the area");
 	delay(1500);
 	lcd->clear();
@@ -141,6 +153,18 @@ void setup(){
 }
 
 void loop(){
+	/*digitalWrite(trigPin, LOW);
+  	delayMicroseconds(2);
+  	digitalWrite(trigPin, HIGH);
+  	delayMicroseconds(10);
+  	digitalWrite(trigPin, LOW);
+
+  	duration = pulseIn(echoPin, HIGH);
+  	distance = (duration*.0343)/2;
+  	Serial.print("Distance: ");
+  	Serial.println(distance);*/
+	Serial.println(sonar->getDetection());
+  	delay(100);
 	/*lcd->setDisplayText(bar->getLoadingBar());
 	Serial.println(bar->getLoadingBar());
 	delay(1500);

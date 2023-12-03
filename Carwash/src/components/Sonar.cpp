@@ -2,13 +2,20 @@
 #include "Sonar.h"
 
 Sonar::Sonar(int pinTrig, int pinEcho) {
-    Sonar(pinTrig, pinEcho, false);
+    Sonar(pinTrig, pinEcho, true);
 }
-Sonar::Sonar(int triggerPin, int echoPin, bool powered) {
-    this->pinTrig = triggerPin;
-    this->pinEcho = echoPin;
+Sonar::Sonar(int pinTrig, int pinEcho, bool powered) {
+    this->pinTrig = pinTrig;
+    this->pinEcho = pinEcho;
     this->powered = powered;
-    this->vs = 331.45 + 0.62 * 20;
+    Serial.print(pinTrig);
+    Serial.print(" ");
+    Serial.println(pinEcho);
+    Serial.print(this->pinTrig);
+    Serial.print(" ");
+    Serial.println(this->pinEcho);
+    pinMode(this->pinTrig, OUTPUT);
+    pinMode(this->pinEcho, INPUT);
 }
 
 bool Sonar::isPowered() {
@@ -20,15 +27,15 @@ void Sonar::setPowered(bool powered) {
 }
 
 double Sonar::getDetection() {
-    digitalWrite(this->pinTrig,LOW);
-    delayMicroseconds(3);
-    digitalWrite(this->pinTrig,HIGH);
-    delayMicroseconds(5);
-    digitalWrite(this->pinTrig,LOW);
-
-    /* Receiving the echo */
-
-    float tUS = pulseIn(this->pinEcho, HIGH);
-    float t = tUS / 1000.0 / 1000.0 / 2;
-    return t*vs;
+    digitalWrite(this->pinTrig, LOW);
+    delayMicroseconds(2);
+  	digitalWrite(this->pinTrig, HIGH);
+  	delayMicroseconds(10);
+  	digitalWrite(this->pinTrig, LOW);
+    Serial.print(this->pinTrig);
+    Serial.print(" ");
+    Serial.println(this->pinEcho);
+  	double duration = pulseIn(this->pinEcho, HIGH);
+  	double distance = (duration*.0343)/2;
+    return distance;
 };
