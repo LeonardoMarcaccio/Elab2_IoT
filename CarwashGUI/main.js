@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 
-var win
+let win
 
 // Creates a window using the main page
 const createWindow = () => {
