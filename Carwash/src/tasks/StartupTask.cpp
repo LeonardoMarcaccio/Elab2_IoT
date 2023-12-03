@@ -16,7 +16,6 @@ StartupTask::StartupTask(int myPeriod, State *currentState, PIR *pir, Led *l1, S
 
 void StartupTask::tick() {
     if(*(this->currentState) == AWAKE) {
-        noInterrupts();
         l1->setPowered(true);
         lcd->setDisplayText("Welcome");
 

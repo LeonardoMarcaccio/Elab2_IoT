@@ -17,6 +17,7 @@ class OpenGateTask : public Task {
         Led *l2;
         SimpleLCD *lcd;
         long MIN_DIST;
+        bool flag;
     
     public:
         OpenGateTask(int myPeriod, State *currentState, Sonar *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd);

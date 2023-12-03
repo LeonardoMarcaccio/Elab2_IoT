@@ -42,6 +42,5 @@ void CheckoutTask::tick() {
             *(this->currentState) = SLEEPING;
             this->l3->setPowered(false);
             this->lcd->clear();
-            interrupts();
     }
 }

@@ -3,34 +3,34 @@
 
 #include "PinConfig.h"
 
-#define PIN_L1 0
-#define PIN_L2 0
-#define PIN_L3 0
+#define PIN_L1 6
+#define PIN_L2 7
+#define PIN_L3 8
 
-#define PIN_BUTTON_START 0
-#define PIN_BUTTON_EMERGENCY 0
+#define PIN_BUTTON_START 6
+#define PIN_BUTTON_EMERGENCY 6
 
-#define PIN_TEMPERATURE 0
+#define PIN_TEMPERATURE 6
 
-#define PIN_SERVO_P 0
-#define PIN_SERVO_N 0
-#define PIN_SERVO_PWM 0
+#define PIN_SERVO_P 6
+#define PIN_SERVO_N 6
+#define PIN_SERVO_PWM 6
 
-#define PIN_GATE_P 0
-#define PIN_GATE_N 0
-#define PIN_GATE_PWM 0
+#define PIN_GATE_P 6
+#define PIN_GATE_N 6
+#define PIN_GATE_PWM 6
 
-#define PIN_LCD 0
+#define PIN_LCD 6
 
-#define PIN_PIR 0
+#define PIN_PIR 4
 
-#define PIN_TRIG 0
-#define PIN_ECHO 0
+#define PIN_TRIG 6
+#define PIN_ECHO 6
 
-#define INT_PIN 0
+#define INT_PIN 6
 
 #define I2C_LCD_ADDR 0x27
-#define I2C_LCD_COLS 16
+#define I2C_LCD_COLS 20
 #define I2C_LCD_ROWS 4
 
 #endif

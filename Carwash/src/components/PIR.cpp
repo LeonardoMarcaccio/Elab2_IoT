@@ -4,18 +4,18 @@
 #include "Scheduler.h"
 #include "PIR.h"
 
-#define CALIBRATION_TIME_SEC 5000
+#define CALIBRATION_TIME_SEC 3
 
 PIR::PIR(int pin, bool p) : PIN(pin), powered(p) {
     //Serve????
     Serial.print("Calibrating sensor... ");
-    for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
+    /*for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
         Serial.print(".");
-        delay(1000);
-    }
+        delay(100);
+    }*/
     Serial.println(" done");
     Serial.println("PIR SENSOR READY.");
-    delay(50);
+    //delay(50);
 }
 
 

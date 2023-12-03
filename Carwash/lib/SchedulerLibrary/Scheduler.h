@@ -10,6 +10,7 @@ class Scheduler {
   
   int basePeriod;
   int nTasks;
+  unsigned long startTime;
   Task* taskList[MAX_TASKS];  
   Timer timer;
 
