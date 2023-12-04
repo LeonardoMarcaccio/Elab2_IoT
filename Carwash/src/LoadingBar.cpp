@@ -3,8 +3,8 @@
 
 #define BLOCK "A"
 
-LoadingBar::LoadingBar(uint8_t start, uint8_t currentValue,
-    uint8_t end, uint8_t barSize) {
+LoadingBar::LoadingBar(unsigned long start, unsigned long currentValue,
+    unsigned long end, unsigned long barSize) {
     this->barSize = barSize;
     this->start = start;
     this->end = end;
@@ -15,14 +15,14 @@ LoadingBar::LoadingBar(uint8_t start, uint8_t currentValue,
 
 String LoadingBar::getLoadingBar() {
     String loadingBarString = "";
-    uint8_t bars = this->currentPercentage / this->blockPercentage;
+    unsigned long bars = this->currentPercentage / this->blockPercentage;
     for (int index = 0; index < bars; index++) {
         loadingBarString = loadingBarString + BLOCK;
     }
     return loadingBarString;
 }
 
-void LoadingBar::setCurrentValue(uint8_t currentValue) {
+void LoadingBar::setCurrentValue(unsigned long currentValue) {
     this->currentValue = currentValue;
     Serial.print("CALCULATING PERC - ");
     Serial.print(start);
@@ -35,10 +35,10 @@ void LoadingBar::setCurrentValue(uint8_t currentValue) {
     this->currentPercentage = calculatePercentage(this->start, this->currentValue, this->end);
 }
 
-uint8_t LoadingBar::calculatePercentage(uint8_t start, uint8_t value, uint8_t end) {
-    return (uint8_t)((double)(value-start)/(double)(end-start)*100); 
+unsigned long LoadingBar::calculatePercentage(unsigned long start, unsigned long value, unsigned long end) {
+    return (unsigned long)((double)(value-start)/(double)(end-start)*100); 
 }
 
-uint8_t LoadingBar::getPercentage() {
+unsigned long LoadingBar::getPercentage() {
     return this->currentPercentage;
 }

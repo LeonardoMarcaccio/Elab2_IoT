@@ -23,12 +23,17 @@ void StartupTask::tick() {
         this->l1->setPowered(true);
         this->lcd->setDisplayText("Welcome");
 
-        if (millis() - this->awakeTime >= this->N1 &&
-            this->pir->isDetecting()) {
-            this->gate->setOpen(true);
-            this->lcd->setDisplayText("Proceed to the Washing Area");
-            *(this->checkInTime) = millis();
-            *(this->currentState) = OPEN_GATE;
+        if (millis() - this->awakeTime >= this->N1) {
+            if (this->pir->isDetecting()) {
+                this->gate->setOpen(true);
+                this->lcd->setDisplayText("Proceed to the Washing Area");
+                *(this->checkInTime) = millis();
+                *(this->currentState) = OPEN_GATE;
+            } else {
+                this->lcd->clear();
+                this->l1->setPowered(false);
+                *(this->currentState) = SLEEPING;
+            }
         }
     }
 }

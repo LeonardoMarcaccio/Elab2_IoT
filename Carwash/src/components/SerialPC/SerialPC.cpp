@@ -10,6 +10,8 @@ void SerialPC::sendMessage(String data) {
     char* charBuf = (char*) malloc(bufSize);
     data.toCharArray(charBuf, bufSize, 0);
     Serial.write(charBuf);
+    Serial.flush();
+    free(charBuf);
 }
 
 bool SerialPC::isConnected() {

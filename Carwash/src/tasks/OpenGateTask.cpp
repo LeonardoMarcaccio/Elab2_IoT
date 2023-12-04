@@ -19,11 +19,26 @@ OpenGateTask::OpenGateTask(int myPeriod, State *currentState, DistanceSensor *so
 }
 
 void OpenGateTask::tick() {
-    if (*(this->currentState) == OPEN_GATE) {
+
+    State currentState = *(this->currentState);
+
+    if (currentState == OPEN_GATE) {
         this->l2->setPowered(!this->l2->isPowered());
 
-        if (millis() - *(this->checkInTime) >= this->N2 &&
-                this->sonar->getDistance() < this->MIN_DIST) {
+        if (this->sonar->getDistance() < this->MIN_DIST) {
+            *(this->currentState) = ENTERING;
+        }
+    }
+
+    if (currentState == ENTERING) {
+        this->l2->setPowered(!this->l2->isPowered());
+
+        if (this->sonar->getDistance() >= this->MIN_DIST) {
+            *(this->currentState) = OPEN_GATE;
+            return;
+        }
+
+        if (millis() - *(this->checkInTime) >= this->N2) {
             *(this->currentState) = READY;
             this->gate->setOpen(false);
             this->lcd->setDisplayText("Ready to Wash");

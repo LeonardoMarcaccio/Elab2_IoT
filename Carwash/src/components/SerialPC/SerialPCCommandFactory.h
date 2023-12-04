@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+//Factory Pattern fiero ahahahahah
+
 class SerialPCCommandFactory {
     public:
         static String connectionMessage();

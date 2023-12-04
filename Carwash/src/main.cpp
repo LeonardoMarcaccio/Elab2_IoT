@@ -47,6 +47,7 @@ void setup() {
 	Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
 	SimpleLCD *lcd = new SimpleLCD(I2C_LCD_ADDR, I2C_LCD_ROWS, I2C_LCD_COLS);
 	Thermometer *therm = new Thermometer(PIN_TEMPERATURE, true);
+	SerialPC *console = new SerialPC();
 
 	unsigned long checkInTime = 5000;
 	unsigned long washStart = 1000;
@@ -57,9 +58,9 @@ void setup() {
 	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);
 	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
-	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
-	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, emergButton, &emergencyStart, &emergencyInterval); //60 millis
-	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd);
+	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
+	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, emergButton, &emergencyStart, &emergencyInterval); //60 millis
+	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd, console);
 
 	sched.init(1000);
 
@@ -83,6 +84,7 @@ void loop() {
 #ifdef DEBUG
 
 DistanceSensor *senzore;
+SerialPC *serialPc;
 
 void initDistSensorTest() {
 	senzore = new DistanceSensor(A0, 2, true);
@@ -92,10 +94,14 @@ void distSensorTestTick() {
 	senzore->getDistance();
 }
 
+void initSerialPCTest() {
+	serialPc = new SerialPC();
+}
+
 void setup(){
 	Serial.begin(9600);
 	// PUT TEST CODE HERE
-	initDistSensorTest();
+	Serial.println(SerialPCCommandFactory::faultMessage("TMP"));
 }
 
 void loop(){
