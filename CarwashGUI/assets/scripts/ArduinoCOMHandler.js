@@ -15,8 +15,12 @@ class Arduino {
 
         this.fireManteinance = document.createElement("button")
         this.fireManteinance.type = "button"
+        this.fireManteinance.innerText = "Resume Operations"
         this.fireManteinance.addEventListener("click", () => {
-
+            this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
+            this.monitorCapsule.getBody().removeChild(this.fireManteinance)
+            window.internalApis.comManager.sendMessageToComSession(this.sessionId,
+                arduinoCOMsConstants.resumeOperationMessage)
         })
 
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.none)
@@ -33,6 +37,7 @@ class Arduino {
             case arduinoCOMsConstants.arduinoStatuses.erro:
                 this.status.style = "color: red"
                 this.status.innerText = "Status: "+status
+                this.monitorCapsule.getBody().appendChild(this.fireManteinance)
             break;
             case arduinoCOMsConstants.arduinoStatuses.good:
                 this.status.style = "color: green"
@@ -53,7 +58,6 @@ class Arduino {
         this.monitorCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Arduino "+this.identifier+" Status", "")
         this.monitorCapsule.getBody().appendChild(this.status)
         this.monitorCapsule.getBody().appendChild(this.temp)
-        //this.monitorCapsule.getBody().appendChild()
         this.capsuleManager.registerCapsule(this.monitorCapsule)
     }
 
@@ -63,7 +67,7 @@ class Arduino {
         this.loggerCapsule.getBody().style = "overflow: auto;"
         getCapsuleManager().registerCapsule(this.loggerCapsule)
         //console.log("Firing connection on port "+this.path+" with baudrate at: "+this.baudrate)
-        window.internalApis.comInteraction.startConnection(this.path, this.baudrate, () => {
+        this.sessionId = window.internalApis.comManager.generateComSession(this.path, this.baudrate, () => {
             console.log("Connection open")
         },
         (data) => {
@@ -71,6 +75,7 @@ class Arduino {
             this.levelZeroParser(data)
         })
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
+        window.internalApis.comManager.startComSession(this.sessionId)
     }
     sendParserWarning() {
         console.warn("Invalid or broken data packet recieved, dumping fragments: "
@@ -82,7 +87,7 @@ class Arduino {
     }
     
     faultHandler(splicedData) {
-        this.setStatus(arduinoCOMsConstants.arduinoStatuses.warn)
+        this.setStatus(arduinoCOMsConstants.arduinoStatuses.erro)
     }
     
     structureHandler() {
@@ -124,7 +129,8 @@ const arduinoCOMsConstants = {
         erro: "ERROR",
         none: "NONE"
     },
-    defaultTempCelsius: 20
+    defaultTempCelsius: 20,
+    resumeOperationMessage: "CW_PC_ACK"
 }
 
 function initArduinoComms() {
@@ -136,7 +142,7 @@ function registerListPanel(element) {
 }
 
 async function fireDeviceScan() {
-    let promiseList = window.internalApis.comInteraction.listConnectedDevices()
+    let promiseList = window.internalApis.comManager.listConnectedDevices()
 	var deviceList = await promiseList
   	if (deviceList.length == 0) {
     	return
