@@ -1,12 +1,12 @@
 #ifndef _SIMPLESERVO_
 #define _SIMPLESERVO_
 
-#include <Servo.h>
+#include <PWMServo.h>
 #include "../../ActiveComponent.h"
 
 class SimpleServo : public ActiveComponent {
     private:
-        Servo controlledServo;
+        PWMServo controlledServo;
         int positivePin, negativePin, pwmPin;
         float targetDeg = 0;
         bool simpleUse = false;

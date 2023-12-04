@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <Servo.h>
+#include <PWMServo.h>
 #include "SimpleServo.h"
 
 SimpleServo::SimpleServo(int pwmPin) {
