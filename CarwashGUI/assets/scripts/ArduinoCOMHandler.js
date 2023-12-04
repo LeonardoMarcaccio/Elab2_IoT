@@ -1,6 +1,14 @@
 let listPanel
 let deviceListCache = []
 
+/*class Arduino {
+    constructor(identifier, path, baudrate) {
+        this.identifier = identifier
+        this.path = path
+        this.baudrate = baudrate
+    }
+}*/
+
 const arduinoCOMsConstants = {
     deviceScanInterval: 1000,
     deviceEntryElementPrefix: '__COME_'
@@ -58,16 +66,18 @@ function buildDeviceList() {
         deviceConnectBtn.textContent = "Connect"
 
         deviceEntryElement.appendChild(deviceName)
-        //deviceEntryElement.appendChild(document.createElement("br"))
         deviceEntryElement.appendChild(deviceDetail)
-        //deviceEntryElement.appendChild(document.createElement("br"))
         deviceEntryElement.appendChild(deviceConnectBtn)
         listPanel.appendChild(deviceEntryElement)
     })
 }
 
+function sendParserWarning() {
+    console.warn("Invalid or broken data packet recieved, dumping fragments: "
+        + separatedDataPacket)
+}
+
 function registerListPanel(element) {
-    console.log("listpanelregistered")
     listPanel = element
 }
 
@@ -75,7 +85,43 @@ function initArduinoComms() {
     window.setInterval(fireDeviceScan, arduinoCOMsConstants.deviceScanInterval)
 }
 
+function dataHandler(splicedData) {
+    console.log(splicedData)
+}
+
+function faultHandler(splicedData) {
+    console.log(splicedData)
+}
+
+function structureHandler() {
+
+}
+
+function levelOneParser(splicedData) {
+    switch(splicedData[0]) {
+        case "DATA":
+            dataHandler(splicedData.splice(1, splicedData.length))
+        break;
+        case "FAULT":
+            faultHandler(splicedData.splice(1, splicedData.length))
+        break;
+    }
+}
+
+function levelZeroParser(data) {
+    let separatedDataPacket = data.split("-")
+    if (separatedDataPacket[0] == "CW" && separatedDataPacket[1] == "MC") {
+        levelOneParser(separatedDataPacket.splice(2, separatedDataPacket.length))
+    } else {
+        sendParserWarning()
+    }
+}
+
 function openConnection(pathto, baudrate) {
+    var loggerElement = document.createElement("p")
+    var loggerCapsule = new Capsule(1, "Logger", loggerElement)
+    loggerCapsule.getBody().style = "overflow: auto;"
+    getCapsuleManager().registerCapsule(loggerCapsule)
     console.log("Firing connection on port "+pathto+" with baudrate at: "+baudrate)
     /*var port = window.internalApis.comInteraction.createSerialPort({
         path:pathto,
@@ -85,6 +131,7 @@ function openConnection(pathto, baudrate) {
         console.log("Connection open")
     },
     (data) => {
-        console.log(data)
+        loggerCapsule.getBody().innerHTML += data+"</br>"
+        levelZeroParser(data)
     })
 }

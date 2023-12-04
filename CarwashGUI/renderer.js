@@ -13,7 +13,7 @@ function initTopBarArea() {
 function initBaseElements() {
     //initTopBarArea()
 	manager = new CapsuleManager()
-    manager.init(document.body)
+  manager.init(document.body)
 }
 
 function generateView() {
@@ -21,6 +21,10 @@ function generateView() {
 	let tempCapsule = new Capsule(0, 'ArduinoCOMs', panel)
 	manager.registerCapsule(tempCapsule)
 	registerListPanel(panel)
+}
+
+function getCapsuleManager() {
+  return manager
 }
 
 function initGUI() {
