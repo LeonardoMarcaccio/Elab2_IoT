@@ -20,7 +20,6 @@ void Thermometer::setPowered(bool powered) {
 }
 
 double Thermometer::getDetection() {
-
     Vo = analogRead(this->pinThermometer);
     R2 = R1 * (1023.0 / (float)Vo - 1.0);
     logR2 = log(R2);

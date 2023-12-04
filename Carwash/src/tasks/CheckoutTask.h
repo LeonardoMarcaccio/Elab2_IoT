@@ -8,6 +8,7 @@
 #include "../components/Motors/Servo/Gate/Gate.h"
 #include "../components/SerialPC/SerialPC.h"
 
+//Class used to represent the CheckoutTask
 class CheckoutTask : public Task {
 
     private :
