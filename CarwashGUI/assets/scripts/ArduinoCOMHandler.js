@@ -12,6 +12,13 @@ class Arduino {
         this.status = arduinoCOMsConstants.arduinoStatuses.none
         this.temp = document.createElement("h4")
         this.status = document.createElement("h4")
+
+        this.fireManteinance = document.createElement("button")
+        this.fireManteinance.type = "button"
+        this.fireManteinance.addEventListener("click", () => {
+
+        })
+
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.none)
         this.setTemperature(arduinoCOMsConstants.defaultTempCelsius)
         this.showMonitor()
@@ -46,6 +53,7 @@ class Arduino {
         this.monitorCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Arduino "+this.identifier+" Status", "")
         this.monitorCapsule.getBody().appendChild(this.status)
         this.monitorCapsule.getBody().appendChild(this.temp)
+        //this.monitorCapsule.getBody().appendChild()
         this.capsuleManager.registerCapsule(this.monitorCapsule)
     }
 

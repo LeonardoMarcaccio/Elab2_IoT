@@ -2,11 +2,11 @@
 
 // TODO: Finish constructors
 Gate::Gate(int positivePin, int negativePin, int pwmPin, bool powered, int startingDeg, int endingDeg)
-    : Servo(positivePin, negativePin, pwmPin, powered){
+    : SimpleServo(positivePin, negativePin, pwmPin, powered){
     this->startingDeg = startingDeg;
     this->endingDeg = endingDeg;
 }
-Gate::Gate(int pwmPin, int startingDeg, int endingDeg) : Servo(pwmPin) {
+Gate::Gate(int pwmPin, int startingDeg, int endingDeg) : SimpleServo(pwmPin) {
     this->startingDeg = startingDeg;
     this->endingDeg = endingDeg;
 }

@@ -1,9 +1,9 @@
 #ifndef _GATE_
 #define _GATE_
 
-#include "../Servo.h"
+#include "../SimpleServo.h"
 
-class Gate : public Servo {
+class Gate : public SimpleServo {
     private:
         int startingDeg, endingDeg;
         bool open;
