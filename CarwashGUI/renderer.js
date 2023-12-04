@@ -1,6 +1,7 @@
 document.body.onload = () => initGUI()
 
 let manager
+let COMController
 
 function initTopBarArea() {
     let nelem = document.createElement('div')
@@ -16,17 +17,10 @@ function initBaseElements() {
 }
 
 function generateView() {
-	let tempCapsule = new Capsule(0, 'ArduinoCOMPort', 'fakecontent')
+	var panel = document.createElement('div')
+	let tempCapsule = new Capsule(0, 'ArduinoCOMs', panel)
 	manager.registerCapsule(tempCapsule)
-}
-
-async function initArduinoComms() {
-	let promiseList = window.internalApis.comInteraction.listConnectedDevices()
-	var deviceList = await promiseList
-	console.log(deviceList)
-	if (deviceList[0].vendorId == "2341") {
-		console.log("ARDUINO FOUND! on "+deviceList[0].path+" !!!")
-	}
+	registerListPanel(panel)
 }
 
 function initGUI() {
@@ -45,7 +39,7 @@ port.on("open", () => {
 parser.on('data', data =>{
   console.log('got word from arduino:', data);
 });
-*/
+
 
 //var serialPortList = await SerialPort.list()
 /*SerialPort.list().then(result => console.log(result))

@@ -14,6 +14,7 @@ const createWindow = () => {
         },
         icon: "./assets/images/carwash.ico",
         frame: false
+        //titleBarStyle: 'hidden'
     })
     win.loadFile('index.html')
 }

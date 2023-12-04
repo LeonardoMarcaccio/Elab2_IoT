@@ -45,11 +45,19 @@ const comInteraction = {
 	listConnectedDevices: () => {
 		return SerialPort.list()
 	},
-	createSerialPort: (pathToPort, baudRate) => {
-		return new SerialPort({pathToPort, baudRate})
-	},
-	createParser: (delimiter) => {
-		return new ReadlineParser(delimiter)
+	startConnection: (path, baudRate, openFunc, dataFunc) => {
+		const serialConnPort = new SerialPort({
+			path:path,
+			baudRate:baudRate
+		})
+		const dataParser = serialConnPort.pipe(
+			new ReadlineParser({ delimiter: '\n' }))
+		serialConnPort.on("open", () => {
+			openFunc()
+		});
+		dataParser.on('data', (data) =>{
+			dataFunc(data)
+		});
 	}
 }
 
@@ -58,3 +66,17 @@ contextBridge.exposeInMainWorld("internalApis", {
 	appInteraction: appInteraction,
 	comInteraction: comInteraction
 })
+
+//var serialPortList = await SerialPort.list()
+/*SerialPort.list().then(result => console.log(result))
+const porta = new SerialPort({
+	path:'COM5',
+	baudRate:9600
+})
+const parsere = porta.pipe(new ReadlineParser({ delimiter: '\n' }));
+porta.on("open", () => {
+  console.log('serial port open');
+});
+parsere.on('data', data =>{
+  console.log('got word from arduino:', data);
+});*/

@@ -34,9 +34,14 @@ class Capsule {
         boxTopBar.innerHTML = this.title
         let boxContent = document.createElement('div')
         boxContent.className = 'ContentBoxBody'
-        boxContent.innerHTML = this.content
 
-        this.nodevar.append(boxTopBar)
+        if (content instanceof HTMLElement) {
+            boxContent.appendChild(content)
+        } else {
+            boxContent.innerHTML = content
+        }
+
+        this.nodevar.appendChild(boxTopBar)
         this.nodevar.appendChild(boxContent)
     }
 
