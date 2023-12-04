@@ -21,7 +21,7 @@
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
 
-//#define DEBUG
+#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
