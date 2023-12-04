@@ -16,7 +16,7 @@
 #include "components/SimpleLCD.h"
 #include "components/Thermometer.h"
 #include "components/SerialPC/SerialPC.h"
-#include "components/Motors/Servo/Servo.h"
+#include "components/Motors/Servo/SimpleServo.h"
 #include "components/Motors/Servo/Gate/Gate.h"
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
