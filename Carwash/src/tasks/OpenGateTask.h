@@ -3,7 +3,6 @@
 
 #include "Task.h"
 #include "../components/DistanceSensor.h"
-#include "../components/PIR.h"
 #include "../components/Motors/Servo/Gate/Gate.h"
 #include "../components/Led.h"
 #include "../components/SimpleLCD.h"
@@ -11,16 +10,16 @@
 class OpenGateTask : public Task {
 
     private :
+        unsigned long *checkInTime;
+        unsigned long N2;
         DistanceSensor *sonar;
-        PIR *pir;
         Gate *gate;
         Led *l2;
         SimpleLCD *lcd;
         float MIN_DIST;
-        bool flag;
     
     public:
-        OpenGateTask(int myPeriod, State *currentState, DistanceSensor *sonar, PIR *pir, Gate *gate, Led *l2, SimpleLCD *lcd);
+        OpenGateTask(int myPeriod, State *currentState, DistanceSensor *sonar, Gate *gate, Led *l2, SimpleLCD *lcd, unsigned long *checkInTime);
         void tick();
 };
 

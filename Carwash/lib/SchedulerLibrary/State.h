@@ -4,7 +4,6 @@
 enum State {
     SLEEPING,   //TASK: Awake
     AWAKE,      //TASK: DONE
-    CHECKIN,    //TASK: Timer
     OPEN_GATE,  //TASK: TODO
     READY,
     WASH,  //TASK: PIR Non detecta, Sonar in range

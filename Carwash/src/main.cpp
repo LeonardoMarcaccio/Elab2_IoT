@@ -5,7 +5,6 @@
 #include "TaskConfig.h"
 #include "tasks/SleepTask.h"
 #include "tasks/StartupTask.h"
-#include "tasks/CheckInTask.h"
 #include "tasks/OpenGateTask.h"
 #include "tasks/ReadyTask.h"
 #include "tasks/WashingTask.h"
@@ -55,19 +54,17 @@ void setup() {
 	unsigned long emergencyInterval = 0;
 
 	Task *sleep = new SleepTask(SLEEP_PERIOD, &currentState, PIN_PIR, l1, l2, l3);
-	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, l1, lcd, &checkInTime);
-	Task *checkIn = new CheckinTask(CHECKIN_PERIOD, &currentState, pir, &checkInTime);
-	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, pir, gate, l2, lcd);
+	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);
+	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
-	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
+	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
 	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, lcd, emergButton, &emergencyStart, &emergencyInterval); //60 millis
-	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, pir, gate, l2, l3, lcd);
+	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd);
 
 	sched.init(1000);
 
 	sched.addTask(sleep);
 	sched.addTask(startUp);
-	sched.addTask(checkIn);
 	sched.addTask(openGate);
 	sched.addTask(ready);
 	sched.addTask(washing);
