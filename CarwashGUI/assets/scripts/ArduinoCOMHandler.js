@@ -1,4 +1,5 @@
 let listPanel
+let busyPorts = []
 let deviceListCache = []
 let connectedArduinos = []
 
@@ -59,9 +60,49 @@ class Arduino {
         },
         (data) => {
             this.loggerCapsule.getBody().innerHTML += data+"</br>"
-            levelZeroParser(data)
+            this.levelZeroParser(data)
         })
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
+    }
+    sendParserWarning() {
+        console.warn("Invalid or broken data packet recieved, dumping fragments: "
+            + separatedDataPacket)
+    }
+    
+    dataHandler(splicedData) {
+        console.log(splicedData)
+    }
+    
+    faultHandler(splicedData) {
+        this.setStatus(arduinoCOMsConstants.arduinoStatuses.warn)
+    }
+    
+    structureHandler() {
+    
+    }
+    
+    levelOneParser(splicedData) {
+        switch(splicedData[0]) {
+            case "DATA":
+                this.dataHandler(splicedData.splice(1, splicedData.length))
+            break;
+            case "FAULT":
+                this.faultHandler(splicedData.splice(1, splicedData.length))
+            break;
+        }
+    }
+
+    levelZeroParser(data) {
+        let separatedDataPacket = data.split("-")
+        if (separatedDataPacket[0] == "CW" && separatedDataPacket[1] == "MC") {
+            this.levelOneParser(separatedDataPacket.splice(2, separatedDataPacket.length))
+        } else {
+            this.sendParserWarning()
+        }
+    }
+
+    getPath() {
+        return this.path
     }
 }
 
@@ -76,6 +117,14 @@ const arduinoCOMsConstants = {
         none: "NONE"
     },
     defaultTempCelsius: 20
+}
+
+function initArduinoComms() {
+    window.setInterval(fireDeviceScan, arduinoCOMsConstants.deviceScanInterval)
+}
+
+function registerListPanel(element) {
+    listPanel = element
 }
 
 async function fireDeviceScan() {
@@ -93,12 +142,20 @@ async function fireDeviceScan() {
 
 function deviceListHandler(detectedDevice) {
     var found = false
+    var connected = false
+
     deviceListCache.forEach((singleDevice) => {
         if (singleDevice.path == detectedDevice.path) {
             found = true
         }
     })
-    if (!found) {
+    connectedArduinos.forEach((singleDevice) => {
+        if (singleDevice.getPath() == detectedDevice.path) {
+            connected = true
+        }
+    })
+
+    if (!found && !connected) {
         deviceListCache.push(detectedDevice)
         buildDeviceList()
     }
@@ -125,6 +182,15 @@ function buildDeviceList() {
         let deviceConnectBtn = document.createElement("button")
         deviceConnectBtn.type = "button"
         deviceConnectBtn.addEventListener("click", () => {
+            var found = false
+            connectedArduinos.forEach((arduinoEntry) => {
+                if (arduinoEntry.getPath() == device.path) {
+                    found = true;
+                }
+            })
+            if (found) {
+                return
+            }
             var nard = new Arduino(connectedArduinos.length, device.path, arduinoCOMsConstants.defaultBaudRate, getCapsuleManager())
             nard.openConnection()
             connectedArduinos.push(nard)
@@ -136,49 +202,4 @@ function buildDeviceList() {
         deviceEntryElement.appendChild(deviceConnectBtn)
         listPanel.appendChild(deviceEntryElement)
     })
-}
-
-function sendParserWarning() {
-    console.warn("Invalid or broken data packet recieved, dumping fragments: "
-        + separatedDataPacket)
-}
-
-function registerListPanel(element) {
-    listPanel = element
-}
-
-function initArduinoComms() {
-    window.setInterval(fireDeviceScan, arduinoCOMsConstants.deviceScanInterval)
-}
-
-function dataHandler(splicedData) {
-    console.log(splicedData)
-}
-
-function faultHandler(splicedData) {
-    console.log(splicedData)
-}
-
-function structureHandler() {
-
-}
-
-function levelOneParser(splicedData) {
-    switch(splicedData[0]) {
-        case "DATA":
-            dataHandler(splicedData.splice(1, splicedData.length))
-        break;
-        case "FAULT":
-            faultHandler(splicedData.splice(1, splicedData.length))
-        break;
-    }
-}
-
-function levelZeroParser(data) {
-    let separatedDataPacket = data.split("-")
-    if (separatedDataPacket[0] == "CW" && separatedDataPacket[1] == "MC") {
-        levelOneParser(separatedDataPacket.splice(2, separatedDataPacket.length))
-    } else {
-        sendParserWarning()
-    }
 }
