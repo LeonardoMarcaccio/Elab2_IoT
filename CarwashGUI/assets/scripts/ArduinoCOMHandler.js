@@ -10,8 +10,10 @@ class Arduino {
         this.baudrate = baudrate
         this.capsuleManager = capsuleManager
         this.status = arduinoCOMsConstants.arduinoStatuses.none
+        this.washCounter = 0
         this.temp = document.createElement("h4")
         this.status = document.createElement("h4")
+        this.washes = document.createElement("h4")
 
         this.fireManteinance = document.createElement("button")
         this.fireManteinance.type = "button"
@@ -21,11 +23,16 @@ class Arduino {
             this.monitorCapsule.getBody().removeChild(this.fireManteinance)
             window.internalApis.comManager.sendMessageToComSession(this.sessionId,
                 arduinoCOMsConstants.resumeOperationMessage)
+            this.loggerCapsule.getBody().innerHTML += arduinoCOMsConstants.resumeOperationMessage
         })
-
+        this.setWashes(0)
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.none)
         this.setTemperature(arduinoCOMsConstants.defaultTempCelsius)
         this.showMonitor()
+    }
+
+    setWashes(washes) {
+        this.washes.innerHTML = "Total Washes: "+washes
     }
 
     setStatus(status) {
@@ -58,6 +65,7 @@ class Arduino {
         this.monitorCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Arduino "+this.identifier+" Status", "")
         this.monitorCapsule.getBody().appendChild(this.status)
         this.monitorCapsule.getBody().appendChild(this.temp)
+        this.monitorCapsule.getBody().appendChild(this.washes)
         this.capsuleManager.registerCapsule(this.monitorCapsule)
     }
 
