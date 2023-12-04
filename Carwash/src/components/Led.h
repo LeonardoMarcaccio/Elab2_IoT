@@ -3,8 +3,8 @@
 
 #include "ActiveComponent.h"
 
+//Class used to represent a Led object
 class Led : public ActiveComponent { 
-   
     private:
         int pin;
         bool powered;

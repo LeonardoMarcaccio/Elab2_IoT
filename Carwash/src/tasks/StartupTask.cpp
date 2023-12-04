@@ -12,6 +12,7 @@ StartupTask::StartupTask(int myPeriod, State *currentState, PIR *pir, Gate *gate
     this->awakeTime = millis();
     this->checkInTime = checkInTime;
     this->N1 = 3000;
+    this->entered = true;
     this->pir = pir;
     this->gate = gate;
     this->l1 = l1;
@@ -20,18 +21,26 @@ StartupTask::StartupTask(int myPeriod, State *currentState, PIR *pir, Gate *gate
 
 void StartupTask::tick() {
     if(*(this->currentState) == AWAKE) {
+        unsigned long now = millis();
         this->l1->setPowered(true);
         this->lcd->setDisplayText("Welcome");
 
-        if (millis() - this->awakeTime >= this->N1) {
+        if (this->entered) {
+            this->awakeTime = now;
+            this->entered = false;
+        }
+
+        if (now - this->awakeTime >= this->N1) {
             if (this->pir->isDetecting()) {
                 this->gate->setOpen(true);
                 this->lcd->setDisplayText("Proceed to the Washing Area");
-                *(this->checkInTime) = millis();
+                this->entered = true;
+                *(this->checkInTime) = now;
                 *(this->currentState) = OPEN_GATE;
             } else {
                 this->lcd->clear();
                 this->l1->setPowered(false);
+                this->entered = true;
                 *(this->currentState) = SLEEPING;
             }
         }

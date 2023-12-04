@@ -6,6 +6,8 @@
 #include "../components/DistanceSensor.h"
 #include "../components/Motors/Servo/Gate/Gate.h"
 #include "../components/SerialPC/SerialPC.h"
+#include "../components/SerialPC/SerialPCCommandFactory.h"
+#include "../components/Constants.h"
 
 CheckoutTask::CheckoutTask(int myPeriod, State *currentState, DistanceSensor *sonar, Gate *gate, Led *l2, Led *l3, SimpleLCD *lcd, SerialPC *console) {
     this->init(myPeriod);
@@ -24,6 +26,7 @@ CheckoutTask::CheckoutTask(int myPeriod, State *currentState, DistanceSensor *so
 void CheckoutTask::tick() {
 
     State currentState = *(this->currentState);
+    unsigned long now = millis();
 
     if (currentState == WASH_END) {
         this->gate->setOpen(true);
@@ -33,7 +36,7 @@ void CheckoutTask::tick() {
 
         if (this->sonar->getDistance() >= this->dist) {
             *(this->currentState) = CHECKOUT;
-            this->checkOutTime = millis();
+            this->checkOutTime = now;
         }
     }
 
@@ -43,13 +46,13 @@ void CheckoutTask::tick() {
             *(this->currentState) = WASH_END;
         }
 
-        if(millis() - this->checkOutTime >= this->interval) {
+        if(now - this->checkOutTime >= this->interval) {
             *(this->currentState) = SLEEPING;
             this->l3->setPowered(false);
             this->lcd->clear();
             this->gate->setOpen(false);
             this->washCount++;
-            this->console->sendMessage(Sera)
+            this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::DATA, String(washCount)));
         }
     }
 }

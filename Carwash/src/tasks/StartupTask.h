@@ -13,6 +13,7 @@ class StartupTask : public Task {
         unsigned long awakeTime;
         unsigned long *checkInTime;
         unsigned long N1;
+        bool entered;
         PIR *pir;
         Gate *gate;
         Led *l1;

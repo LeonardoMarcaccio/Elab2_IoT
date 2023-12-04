@@ -3,6 +3,7 @@
 
 #include "ActiveComponent.h"
 
+//Class used to represent a Button object
 class Button : public ActiveComponent {
 
     private:

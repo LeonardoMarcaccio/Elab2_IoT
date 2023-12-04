@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Button.h"
 
+//Implementation of the class Button
 Button::Button(int pin) {
   this->pin = pin;
   pinMode(pin, INPUT);

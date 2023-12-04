@@ -4,6 +4,8 @@
 #include "../components/SimpleLCD.h"
 #include "../components/Button.h"
 #include "../components/SerialPC/SerialPC.h"
+#include "../components/SerialPC/SerialPCCommandFactory.h"
+#include "../components/Constants.h"
 
 EmergencyTask::EmergencyTask(int myPeriod, State *currentState, SerialPC *console, SimpleLCD *lcd, Button *button, unsigned long *emergencyStart, unsigned long *emergencyInterval) {
     this->init(myPeriod);
@@ -17,7 +19,7 @@ EmergencyTask::EmergencyTask(int myPeriod, State *currentState, SerialPC *consol
 
 void EmergencyTask::tick() {
     if (*(this->currentState) == EMERGENCY) {
-        this->console->sendMessage("Mantainance required");
+        this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::DATA, "Mantainance required"));
         this->lcd->setDisplayText("Detected a problem - Please Wait");
         if (this->button->isPowered()) {
             *(this->currentState) = WASH;

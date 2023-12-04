@@ -32,6 +32,7 @@ void WashingTask::tick() {
 
     State currentState = *(this->currentState);
     double temp = this->therm->getDetection();
+    unsigned long now = millis();
 
     if (this->emergencyFlag == true) {
         this->interval += *(this->emergencyInterval);
@@ -39,13 +40,13 @@ void WashingTask::tick() {
     }
 
     if (currentState == WASH || currentState == OVERHEAT) {
-        this->console->sendMessage(SerialPCCommandFactory::dataPacket(TMP, temp));
+        this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::TMP, String(temp)));
         unsigned long washStart = *(this->washStart);
         this->l2->setPowered(!this->l2->isPowered());
-        this->progress->setCurrentValue(millis() - washStart - *(this->emergencyInterval));
+        this->progress->setCurrentValue(now - washStart - *(this->emergencyInterval));
         this->lcd->setDisplayText(this->progress->getLoadingBar());
 
-        if (millis() - washStart >= this->interval) {
+        if (now - washStart >= this->interval) {
             *(this->currentState) = WASH_END;
             this->interval = this->standardInterval;
             *(this->emergencyInterval) = 0;
@@ -54,15 +55,15 @@ void WashingTask::tick() {
     }
 
     if (currentState == OVERHEAT &&
-            millis() - this->overheatStart >= this->overheatInterval) {
+            now - this->overheatStart >= this->overheatInterval) {
         *(this->currentState) = EMERGENCY;
-        *(this->emergencyStart) = millis();
+        *(this->emergencyStart) = now;
         this->emergencyFlag = true;
     }
 
     if (currentState == WASH &&
             temp > this->MAXTEMP) {
-        this->overheatStart = millis();
+        this->overheatStart = now;
         *(this->currentState) = OVERHEAT;
     }
 

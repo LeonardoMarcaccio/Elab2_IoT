@@ -9,6 +9,7 @@
 #include <Arduino.h>
 #include "DigitalSensor.h"
 
+//Class used to represent a Distance detector (A simple Sonar) object
 class DistanceSensor : public DigitalSensor {
     private:
         uint8_t echoPin;

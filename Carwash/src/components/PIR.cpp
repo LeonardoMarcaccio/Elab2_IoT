@@ -6,13 +6,14 @@
 
 #define CALIBRATION_TIME_SEC 3
 
+//Implementation of the class Pir
 PIR::PIR(int pin, bool p) : PIN(pin), powered(p) {
-    //Serve????
+    //Calibration period
     Serial.print("Calibrating sensor... ");
-    /*for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
+    for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
         Serial.print(".");
-        delay(100);
-    }*/
+        //delay(100);
+    }
     Serial.println(" done");
     Serial.println("PIR SENSOR READY.");
     //delay(50);

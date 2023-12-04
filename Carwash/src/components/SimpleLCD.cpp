@@ -3,6 +3,7 @@
 #include "SimpleLCD.h"
 #include <LiquidCrystal_I2C.h>
 
+//Implementation of the class SimpleLCD
 SimpleLCD::SimpleLCD(uint8_t address, uint8_t rows, uint8_t columns) {
     this->address = address;
     this->rows = rows;

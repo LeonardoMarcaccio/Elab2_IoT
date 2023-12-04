@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Led.h"
 
+//Implementation of the class Led
 Led::Led(int pin) {
   this->pin = pin;
   this->powered = false;

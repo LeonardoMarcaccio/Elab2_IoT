@@ -3,6 +3,7 @@
 
 #include "DigitalSensor.h"
 
+//Class used to represent a Pir object
 class PIR : public DigitalSensor {
     private :
         int PIN;

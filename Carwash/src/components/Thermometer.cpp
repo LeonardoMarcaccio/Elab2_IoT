@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Thermometer.h"
 
+//Implementation of the class Thermometer
 Thermometer::Thermometer(int pinThermometer) {
     Thermometer(pinThermometer, powered);
 }

@@ -4,6 +4,7 @@
 #include "ActiveComponent.h"
 #include <LiquidCrystal_I2C.h>
 
+//Class used to represent a SimpleLCD, an I2C basic LCD, object
 class SimpleLCD : public ActiveComponent {
 
     private :
