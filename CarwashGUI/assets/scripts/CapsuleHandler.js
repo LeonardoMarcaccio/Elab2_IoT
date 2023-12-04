@@ -13,6 +13,10 @@ class CapsuleManager {
         docToInjectTo.appendChild(this.nodevar)
     }
 
+    getLastFreeId() {
+        return this.children.length
+    }
+
     registerCapsule(capsule) {
         let contained = false
         this.children.forEach((registeredCap) => {

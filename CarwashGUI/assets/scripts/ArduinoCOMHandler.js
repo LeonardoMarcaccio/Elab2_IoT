@@ -1,17 +1,81 @@
 let listPanel
 let deviceListCache = []
+let connectedArduinos = []
 
-/*class Arduino {
-    constructor(identifier, path, baudrate) {
+class Arduino {
+    constructor(identifier, path, baudrate, capsuleManager) {
         this.identifier = identifier
         this.path = path
         this.baudrate = baudrate
+        this.capsuleManager = capsuleManager
+        this.status = arduinoCOMsConstants.arduinoStatuses.none
+        this.temp = document.createElement("h4")
+        this.status = document.createElement("h4")
+        this.setStatus(arduinoCOMsConstants.arduinoStatuses.none)
+        this.setTemperature(arduinoCOMsConstants.defaultTempCelsius)
+        this.showMonitor()
     }
-}*/
+
+    setStatus(status) {
+        switch(status) {
+            case arduinoCOMsConstants.arduinoStatuses.none:
+                this.status.style = "color: gray"
+                this.status.innerText = "Status: "+status
+            break;
+            case arduinoCOMsConstants.arduinoStatuses.erro:
+                this.status.style = "color: red"
+                this.status.innerText = "Status: "+status
+            break;
+            case arduinoCOMsConstants.arduinoStatuses.good:
+                this.status.style = "color: green"
+                this.status.innerText = "Status: "+status
+            break;
+            case arduinoCOMsConstants.arduinoStatuses.warn:
+                this.status.style = "color: yellow"
+                this.status.innerText = "Status: "+status
+            break;
+        }
+    }
+
+    setTemperature(temp) {
+        this.temp.innerText = "Temperature: "+temp+"°C"
+    }
+
+    showMonitor() {
+        this.monitorCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Arduino "+this.identifier+" Status", "")
+        this.monitorCapsule.getBody().appendChild(this.status)
+        this.monitorCapsule.getBody().appendChild(this.temp)
+        this.capsuleManager.registerCapsule(this.monitorCapsule)
+    }
+
+    openConnection() {
+        var loggerElement = document.createElement("p")
+        this.loggerCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Logger "+this.identifier, loggerElement)
+        this.loggerCapsule.getBody().style = "overflow: auto;"
+        getCapsuleManager().registerCapsule(this.loggerCapsule)
+        //console.log("Firing connection on port "+this.path+" with baudrate at: "+this.baudrate)
+        window.internalApis.comInteraction.startConnection(this.path, this.baudrate, () => {
+            console.log("Connection open")
+        },
+        (data) => {
+            this.loggerCapsule.getBody().innerHTML += data+"</br>"
+            levelZeroParser(data)
+        })
+        this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
+    }
+}
 
 const arduinoCOMsConstants = {
     deviceScanInterval: 1000,
-    deviceEntryElementPrefix: '__COME_'
+    deviceEntryElementPrefix: '__COME_',
+    defaultBaudRate: 9600,
+    arduinoStatuses: {
+        good: "GOOD",
+        warn: "WARNING",
+        erro: "ERROR",
+        none: "NONE"
+    },
+    defaultTempCelsius: 20
 }
 
 async function fireDeviceScan() {
@@ -61,7 +125,9 @@ function buildDeviceList() {
         let deviceConnectBtn = document.createElement("button")
         deviceConnectBtn.type = "button"
         deviceConnectBtn.addEventListener("click", () => {
-            openConnection(device.path, 9600)
+            var nard = new Arduino(connectedArduinos.length, device.path, arduinoCOMsConstants.defaultBaudRate, getCapsuleManager())
+            nard.openConnection()
+            connectedArduinos.push(nard)
         })
         deviceConnectBtn.textContent = "Connect"
 
@@ -115,23 +181,4 @@ function levelZeroParser(data) {
     } else {
         sendParserWarning()
     }
-}
-
-function openConnection(pathto, baudrate) {
-    var loggerElement = document.createElement("p")
-    var loggerCapsule = new Capsule(1, "Logger", loggerElement)
-    loggerCapsule.getBody().style = "overflow: auto;"
-    getCapsuleManager().registerCapsule(loggerCapsule)
-    console.log("Firing connection on port "+pathto+" with baudrate at: "+baudrate)
-    /*var port = window.internalApis.comInteraction.createSerialPort({
-        path:pathto,
-        baudRate:baudrate
-    })*/
-    window.internalApis.comInteraction.startConnection(pathto, baudrate, () => {
-        console.log("Connection open")
-    },
-    (data) => {
-        loggerCapsule.getBody().innerHTML += data+"</br>"
-        levelZeroParser(data)
-    })
 }
