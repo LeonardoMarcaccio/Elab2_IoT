@@ -22,7 +22,9 @@ class Arduino {
             this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
             this.monitorCapsule.getBody().removeChild(this.fireManteinance)
             window.internalApis.comManager.sendMessageToComSession(this.sessionId,
-                arduinoCOMsConstants.resumeOperationMessage)
+                MessageFactory.generateDataMessage(
+                    arduinoCOMsConstants.messageSyntax.TMP_SENSOR,
+                    arduinoCOMsConstants.messageSyntax.CONFIRM))
             this.loggerCapsule.getBody().innerHTML += arduinoCOMsConstants.resumeOperationMessage
         })
         this.setWashes(0)
@@ -58,7 +60,8 @@ class Arduino {
     }
 
     setTemperature(temp) {
-        this.temp.innerText = "Temperature: "+temp+"°C"
+        this.temperature = temp
+        this.temp.innerText = "Temperature: "+this.temperature+"°C"
     }
 
     showMonitor() {
@@ -85,21 +88,26 @@ class Arduino {
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.good)
         window.internalApis.comManager.startComSession(this.sessionId)
     }
-    sendParserWarning() {
-        console.warn("Invalid or broken data packet recieved, dumping fragments: "
-            + separatedDataPacket)
-    }
     
     dataHandler(splicedData) {
-        console.log(splicedData)
+        switch(splicedData[0]) {
+            case arduinoCOMsConstants.messageSyntax.TMP_SENSOR:
+                this.setTemperature(splicedData[1])
+            break;
+            case arduinoCOMsConstants.messageSyntax.WASH:
+                this.setWashes(splicedData[1])
+            break;
+            default:
+                sendParserWarning("Recieved unknown data type from arduino on "
+                    + this.path
+                    + "\nDumping unencapsulated data:\n"
+                    + splicedData)
+            break;
+        }
     }
     
     faultHandler(splicedData) {
         this.setStatus(arduinoCOMsConstants.arduinoStatuses.erro)
-    }
-    
-    structureHandler() {
-    
     }
     
     levelOneParser(splicedData) {
@@ -109,6 +117,11 @@ class Arduino {
             break;
             case "FAULT":
                 this.faultHandler(splicedData.splice(1, splicedData.length))
+            break;
+            default:
+                sendParserWarning("Unrecognized directive, check for language updates"
+                    + "\nDumping unknown packet:"
+                    + splicedData)
             break;
         }
     }
@@ -127,6 +140,12 @@ class Arduino {
     }
 }
 
+function sendParserWarning(message) {
+    if (!(message  === 'undefined')) {
+        console.warn("[PARSER] "+ message)
+    }
+}
+
 const arduinoCOMsConstants = {
     deviceScanInterval: 1000,
     deviceEntryElementPrefix: '__COME_',
@@ -138,7 +157,43 @@ const arduinoCOMsConstants = {
         none: "NONE"
     },
     defaultTempCelsius: 20,
-    resumeOperationMessage: "CW_PC_ACK"
+    resumeOperationMessage: "CW_PC_ACK",
+    messageSyntax: {
+        PREFIX: "CW",
+        SPACING: "-",
+        ENDLINE: "\n",
+        MC_PREFIX: "MC",
+        PC_PREFIX: "PC",
+        HANDSHAKE: "INIT",
+        CONFIRM: "ACK",
+        END: "CLOSE",
+        FAULT: "FAULT",
+        DATA: "DATA",
+        TMP_SENSOR: "TMP",
+        WASH: "WASH"
+    }
+}
+
+class MessageFactory {
+    static #generateMesssageFrame(content) {
+        return arduinoCOMsConstants.messageSyntax.PREFIX 
+            + arduinoCOMsConstants.messageSyntax.SPACING
+            + content
+            + arduinoCOMsConstants.messageSyntax.SPACING
+            + arduinoCOMsConstants.messageSyntax.PC_PREFIX
+            + arduinoCOMsConstants.messageSyntax.ENDLINE
+    }
+    static generateDataMessage(subject, data) {
+        return this.#generateMesssageFrame(
+            arduinoCOMsConstants.messageSyntax.DATA
+            + arduinoCOMsConstants.messageSyntax.SPACING
+            + subject
+            + arduinoCOMsConstants.messageSyntax.SPACING
+            + data)
+    }
+    static generateAcknowledgeMessage() {
+        return this.#generateMesssageFrame(arduinoCOMsConstants.messageSyntax.CONFIRM)
+    }
 }
 
 function initArduinoComms() {
