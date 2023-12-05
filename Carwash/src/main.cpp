@@ -30,7 +30,6 @@ unsigned long startTime = 0;
 
 void setup() {
 	Serial.begin(9600);
-	Serial.flush();
 	// put your setup code here, to run once:
 	currentState = AWAKE;
 
@@ -78,8 +77,8 @@ void setup() {
 }
 
 void loop() {
-	Serial.println("Gay+");
-	Serial.flush();
+	//Serial.println("Gay+");
+	//Serial.flush();
 	sched.schedule();
 }
 
