@@ -32,7 +32,7 @@ class Arduino {
             break;
             case arduinoCOMsConstants.arduinoStatuses.erro:
                 this.status.style = "color: red"
-                this.status.innerText = "Status: "+status
+                this.status.innerText = "Manteinance required"
             break;
             case arduinoCOMsConstants.arduinoStatuses.good:
                 this.status.style = "color: green"
