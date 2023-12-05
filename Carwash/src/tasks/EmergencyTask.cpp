@@ -22,7 +22,7 @@ void EmergencyTask::tick() {
         this->lcd->clear();
         this->lcd->setDisplayText("Detected a problem", 0);
         this->lcd->setDisplayText("Please Wait", 1);
-        if (false) {
+        if (this->console->receiveMessage().equals("OK")) {
             *(this->currentState) = WASH;
             *(this->emergencyInterval) = millis() - *(this->emergencyStart);
             this->console->sendMessage("Mantainance done");
