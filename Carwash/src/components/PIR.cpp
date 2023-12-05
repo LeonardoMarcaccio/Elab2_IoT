@@ -31,7 +31,7 @@ void PIR::setPowered(bool powered) {
 bool PIR::isDetecting() {
     int detected = digitalRead(this->PIN);
     if (detected == HIGH){
-        Serial.println("detected!");
+        Serial.println("PirId:" + String(this->PIN) + "detected!");
         return true;
     }
     return false;
