@@ -1,3 +1,9 @@
+/**
+ * Lorenzo Dalmonte   0001021552
+ * Marco Francolini   0001021056
+ * Leonardo Marcaccio 0001021005
+*/
+
 #include <Arduino.h>
 #include "State.h"
 #include "PinConfig.h"
