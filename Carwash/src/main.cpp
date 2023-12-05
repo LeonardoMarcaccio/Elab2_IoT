@@ -21,7 +21,7 @@
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
 
-////#define DEBUG
+#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
@@ -88,20 +88,30 @@ void loop() {
 #ifdef DEBUG
 
 #include "components/Constants.h"
+#include "components/SerialPC/SerialPC.h"
+#include "components/SerialPC/SerialCommandParser.h"
+#include "components/SerialPC/SerialPCCommandFactory.h"
 
 Gate gate = Gate::Gate(9, -180, 180);
+SerialPC *console = new SerialPC();
 bool flag = false; 
 
 void setup() {
 	Serial.begin(9600);
+
 }
 
 void loop() {
+
+	Serial.println(SerialCommandParser::isManteinanceCompleteCommand(console->receiveMessage()) ? "True" : "False");
+	delay(1000);
+	/*
 	delay(5000);
 	gate.setOpen(flag);
 	Serial.println("Cock 8===============> \n" + flag);
 	Serial.flush();
 	flag = !flag;
+	*/
 }
 
 

@@ -41,7 +41,7 @@ void WashingTask::tick() {
 
     if (currentState == WASH || currentState == OVERHEAT) {
         unsigned long washStart = *(this->washStart);
-        this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::TMP_SENSOR, String(temp)));
+        this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::MC_PREFIX, SerialPCConstants::TMP_SENSOR, String(temp)));
         this->l2->setPowered(!this->l2->isPowered());
         this->progress->setCurrentValue(now - washStart - *(this->emergencyInterval));
         this->lcd->clear();
