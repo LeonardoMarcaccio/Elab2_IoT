@@ -27,3 +27,7 @@ void SerialPC::connect() {
 void SerialPC::addListener(SerialListener* listener) {
     
 }
+
+String SerialPC::receiveMessage() {
+    return Serial.readString();
+}

@@ -36,6 +36,11 @@ class SerialPC {
         */
         void sendMessage(String data);
         /**
+         * Receives a string from the connected device via the serial line.
+         * @return the message to receive
+        */
+        String receiveMessage();
+        /**
          * Registers a listener that is going to be triggered whenever
          * something happens in the serial line.
          * @param listener the listener that has to be registered
