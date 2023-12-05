@@ -44,7 +44,8 @@ namespace SerialPCConstants {
     /**
      * Represents temperature sensor.
     */
-    static const String TMP = "TMP";
+    static const String TMP_SENSOR = "TMP";
+    static const String WASH = "WASH";
 };
 
 #endif
