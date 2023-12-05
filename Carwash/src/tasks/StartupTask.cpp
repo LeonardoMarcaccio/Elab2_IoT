@@ -22,10 +22,10 @@ StartupTask::StartupTask(int myPeriod, State *currentState, PIR *pir, Gate *gate
 void StartupTask::tick() {
     if(*(this->currentState) == AWAKE) {
         unsigned long now = millis();
-        this->l1->setPowered(true);
-        this->lcd->setDisplayText("Welcome");
 
         if (this->entered) {
+            this->l1->setPowered(true);
+            this->lcd->setDisplayText("Welcome");
             this->awakeTime = now;
             this->entered = false;
         }

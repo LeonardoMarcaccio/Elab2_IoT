@@ -21,7 +21,7 @@
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
 
-//#define DEBUG
+////#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
@@ -58,7 +58,7 @@ void setup() {
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
 	/*
 	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
-	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, &emergencyStart, &emergencyInterval); //60 millis
+	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, NULL, &emergencyStart, &emergencyInterval); //60 millis
 	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd, console);
 	*/
 
