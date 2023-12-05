@@ -21,7 +21,7 @@
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
 
-#define DEBUG
+//#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
@@ -55,11 +55,11 @@ void setup() {
 	Task *sleep = new SleepTask(SLEEP_PERIOD, &currentState, PIN_PIR, l1, l2, l3); 						// 0 millis
 	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);	// 63 millis con bottone
 	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);	//75 millis con sonar wcs
-	/*
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
 	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
-	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, emergButton, &emergencyStart, &emergencyInterval); //60 millis
+	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, &emergencyStart, &emergencyInterval); //60 millis
 	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd, console);
+	/*
 	*/
 
 	sched.init(1000);
@@ -69,11 +69,11 @@ void setup() {
 	sched.addTask(sleep);
 	sched.addTask(startUp);
 	sched.addTask(openGate);
-	/*
 	sched.addTask(ready);
 	sched.addTask(washing);
 	sched.addTask(emergency);
 	sched.addTask(checkOut);
+	/*
 	*/
 }
 
