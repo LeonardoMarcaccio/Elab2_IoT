@@ -2,16 +2,16 @@
 #define _STATE_
 
 enum State {
-    SLEEPING,   //TASK: Awake
-    AWAKE,      //TASK: DONE
-    OPEN_GATE,  //TASK: TODO
+    SLEEPING,
+    AWAKE,
+    OPEN_GATE,
     ENTERING,
     READY,
-    WASH,  //TASK: PIR Non detecta, Sonar in range
-    OVERHEAT,   //TASK: Termometro
-    EMERGENCY,  //TASK: Timer
-    WASH_END,   //TASK: Open Gate 
-    CHECKOUT    //TASK: PIR e Sonar Non detectano 
+    WASH,
+    OVERHEAT,
+    EMERGENCY,
+    WASH_END,
+    CHECKOUT
 };
 
 #endif

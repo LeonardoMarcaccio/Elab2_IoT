@@ -21,14 +21,7 @@ void Scheduler::schedule(){
   timer.waitForNextTick();
   for (int i = 0; i < nTasks; i++){
     if (taskList[i]->updateAndCheckTime(basePeriod)){
-      this->startTime = millis();
       taskList[i]->tick();
-      /*while (this->startTime == millis()) {
-        Serial.print("Odio il C");
-        Serial.flush();
-      }*/
-      Serial.println(millis() - this->startTime);
-      Serial.flush();
     }
   }
 }

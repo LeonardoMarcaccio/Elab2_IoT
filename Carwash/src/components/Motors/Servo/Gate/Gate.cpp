@@ -1,6 +1,5 @@
 #include "Gate.h"
 
-// TODO: Finish constructors
 Gate::Gate(int positivePin, int negativePin, int pwmPin, bool powered, int startingDeg, int endingDeg)
     : SimpleServo(positivePin, negativePin, pwmPin, powered){
     this->startingDeg = startingDeg;

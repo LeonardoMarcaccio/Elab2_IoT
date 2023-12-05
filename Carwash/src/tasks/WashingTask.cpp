@@ -18,7 +18,7 @@ WashingTask::WashingTask(int myPeriod, State *currentState, Thermometer *therm, 
     this->console = console;
     this->MAXTEMP = 40;
     this->washStart = washStart;
-    this->standardInterval = 5000; //  random
+    this->standardInterval = 5000;
     this->interval = this->standardInterval;
     this->progress = new LoadingBar(0, 0, this->standardInterval, 20);
     this->overheatInterval = 4000;

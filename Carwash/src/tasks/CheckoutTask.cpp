@@ -9,7 +9,6 @@
 #include "../components/SerialPC/SerialPCCommandFactory.h"
 #include "../components/Constants.h"
 
-
 CheckoutTask::CheckoutTask(int myPeriod, State *currentState, DistanceSensor *sonar, Gate *gate, Led *l2, Led *l3, SimpleLCD *lcd, SerialPC *console) {
     this->init(myPeriod);
     this->currentState = currentState;

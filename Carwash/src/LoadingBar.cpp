@@ -24,14 +24,6 @@ String LoadingBar::getLoadingBar() {
 
 void LoadingBar::setCurrentValue(unsigned long currentValue) {
     this->currentValue = currentValue;
-    /*Serial.print("CALCULATING PERC - ");
-    Serial.print(start);
-    Serial.print(" ");
-    Serial.print(this->currentValue);
-    Serial.print(" ");
-    Serial.print(end);
-    Serial.print(" - CALCULATING PERC\n");
-    Serial.flush();*/
     this->currentPercentage = calculatePercentage(this->start, this->currentValue, this->end);
 }
 
