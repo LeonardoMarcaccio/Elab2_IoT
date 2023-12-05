@@ -19,7 +19,9 @@ EmergencyTask::EmergencyTask(int myPeriod, State *currentState, SerialPC *consol
 void EmergencyTask::tick() {
     if (*(this->currentState) == EMERGENCY) {
         this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::DATA, "Mantainance required"));
-        this->lcd->setDisplayText("Detected a problem - Please Wait");
+        this->lcd->clear();
+        this->lcd->setDisplayText("Detected a problem", 0);
+        this->lcd->setDisplayText("Please Wait", 1);
         if (false) {
             *(this->currentState) = WASH;
             *(this->emergencyInterval) = millis() - *(this->emergencyStart);

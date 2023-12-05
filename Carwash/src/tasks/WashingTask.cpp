@@ -44,7 +44,8 @@ void WashingTask::tick() {
         unsigned long washStart = *(this->washStart);
         this->l2->setPowered(!this->l2->isPowered());
         this->progress->setCurrentValue(now - washStart - *(this->emergencyInterval));
-        this->lcd->setDisplayText(this->progress->getLoadingBar());
+        this->lcd->clear();
+        this->lcd->setDisplayText(this->progress->getLoadingBar(), 0);
 
         if (now - washStart >= this->interval) {
             *(this->currentState) = WASH_END;

@@ -33,7 +33,10 @@ void CheckoutTask::tick() {
         this->gate->setOpen(true);
         this->l2->setPowered(false);
         this->l3->setPowered(true);
-        this->lcd->setDisplayText("Washing complete, you can leave the area");
+        this->lcd->clear();
+        this->lcd->setDisplayText("Washing complete", 0);
+        this->lcd->setDisplayText("You can leave the", 1);
+        this->lcd->setDisplayText("area", 2);
 
         if (this->sonar->getDistance() >= this->dist) {
             *(this->currentState) = CHECKOUT;

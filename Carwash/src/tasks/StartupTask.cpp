@@ -25,22 +25,22 @@ void StartupTask::tick() {
 
         if (this->entered) {
             this->l1->setPowered(true);
-            this->lcd->setDisplayText("Welcome");
+            this->lcd->clear();
+            this->lcd->setDisplayText("Welcome", 0);
             this->awakeTime = now;
             this->entered = false;
         }
 
         if (now - this->awakeTime >= this->N1) {
+            this->entered = true;
+            this->lcd->clear();
             if (this->pir->isDetecting()) {
+                this->lcd->setDisplayText("Proceed to the", 0);
+                this->lcd->setDisplayText("Washing Area", 1);
                 this->gate->setOpen(true);
-                this->lcd->setDisplayText("Proceed to the Washing Area");
-                this->entered = true;
                 *(this->checkInTime) = now;
                 *(this->currentState) = OPEN_GATE;
             } else {
-                this->lcd->clear();
-                this->l1->setPowered(false);
-                this->entered = true;
                 *(this->currentState) = SLEEPING;
             }
         }

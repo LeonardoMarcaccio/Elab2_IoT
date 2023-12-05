@@ -41,7 +41,8 @@ void OpenGateTask::tick() {
         if (millis() - *(this->checkInTime) >= this->N2) {
             *(this->currentState) = READY;
             this->gate->setOpen(false);
-            this->lcd->setDisplayText("Ready to Wash");
+            this->lcd->clear();
+            this->lcd->setDisplayText("Ready to Wash", 0);
             this->l2->setPowered(true);
         }
     }

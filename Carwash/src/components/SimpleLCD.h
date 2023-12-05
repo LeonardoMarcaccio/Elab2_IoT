@@ -16,7 +16,7 @@ class SimpleLCD : public ActiveComponent {
         SimpleLCD(uint8_t address, uint8_t rows, uint8_t columns);
         bool isPowered();
         void setPowered(bool powered);
-        void setDisplayText(String text);
+        void setDisplayText(String text, int row);
         String getDisplayText();
         void clear();
 };

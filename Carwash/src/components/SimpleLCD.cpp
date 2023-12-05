@@ -26,30 +26,9 @@ void SimpleLCD::setPowered(bool powered) {
     }
 }
 
-void SimpleLCD::setDisplayText(String text) {
-    this->clear();
-    this->text = text;
-    int lines = (text.length() % this->columns != 0)
-        ? (text.length() / this->columns) + 1
-        : text.length() / this->columns;
-
-    int carouselA = 0, carouselB = this->columns;
-    int remainingChars = text.length();
-    
-    for (int index = 0; index < lines; index++) {
-        this->lcd->setCursor(0, index);
-        this->lcd->print(text.substring(carouselA, carouselB));
-
-        carouselA = carouselA + this->columns;
-
-        carouselB = (carouselB + this->columns) > remainingChars
-                ? carouselB + remainingChars
-                : carouselB + this->columns;
-
-        remainingChars = (remainingChars >= this->columns) 
-            ? remainingChars - this->columns
-            : 0;
-    }
+void SimpleLCD::setDisplayText(String text, int row) {
+    this->lcd->setCursor(0, row);
+    this->lcd->print(text);
 }
 
 String SimpleLCD::getDisplayText() {
