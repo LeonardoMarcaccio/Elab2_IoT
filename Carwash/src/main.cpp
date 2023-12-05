@@ -40,7 +40,7 @@ void setup() {
 	Button *startButton = new Button(PIN_BUTTON_START);
 	DistanceSensor *sonar = new DistanceSensor(PIN_ECHO, PIN_TRIG);
 	PIR *pir = new PIR(PIN_PIR, true);
-	Gate *gate = new Gate(PIN_GATE_P, PIN_GATE_N, PIN_GATE_PWM, true, 0, 90);
+	Gate *gate = new Gate(PIN_GATE_PWM, -90, 90);
 	SimpleLCD *lcd = new SimpleLCD(I2C_LCD_ADDR, I2C_LCD_ROWS, I2C_LCD_COLS);
 	Thermometer *therm = new Thermometer(PIN_TEMPERATURE, true);
 	SerialPC *console = new SerialPC();
@@ -56,10 +56,10 @@ void setup() {
 	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);	// 63 millis con bottone
 	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);	//75 millis con sonar wcs
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
+	/*
 	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
 	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, &emergencyStart, &emergencyInterval); //60 millis
 	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd, console);
-	/*
 	*/
 
 	sched.init(1000);
@@ -70,10 +70,10 @@ void setup() {
 	sched.addTask(startUp);
 	sched.addTask(openGate);
 	sched.addTask(ready);
+	/*
 	sched.addTask(washing);
 	sched.addTask(emergency);
 	sched.addTask(checkOut);
-	/*
 	*/
 }
 
@@ -87,30 +87,22 @@ void loop() {
 
 #ifdef DEBUG
 
-DistanceSensor *senzore;
-SerialPC *serialPc;
+#include "components/Constants.h"
 
-void initDistSensorTest() {
-	senzore = new DistanceSensor(A0, 2, true);
-	Serial.println("Created senzore");
-}
-void distSensorTestTick() {
-	senzore->getDistance();
-}
+Gate gate = Gate::Gate(9, -180, 180);
+bool flag = false; 
 
-void initSerialPCTest() {
-	serialPc = new SerialPC();
-}
-
-void setup(){
+void setup() {
 	Serial.begin(9600);
-	// PUT TEST CODE HERE
-	Serial.println(SerialPCCommandFactory::faultMessage("TMP"));
 }
 
-void loop(){
-	distSensorTestTick();
-	delay(150);
+void loop() {
+	delay(5000);
+	gate.setOpen(flag);
+	Serial.println("Cock 8===============> \n" + flag);
+	Serial.flush();
+	flag = !flag;
 }
+
 
 #endif

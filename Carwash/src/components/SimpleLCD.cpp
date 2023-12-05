@@ -40,6 +40,9 @@ void SimpleLCD::setDisplayText(String text) {
         this->lcd->setCursor(0, index);
         this->lcd->print(text.substring(carouselA, carouselB));
 
+       Serial.print("orcodeddio : " + text.substring(carouselA, carouselB));
+       Serial.flush();
+
         carouselA = carouselA + this->columns;
 
         carouselB = (carouselB + this->columns) > remainingChars

@@ -13,13 +13,9 @@
 #define PIN_TEMPERATURE A1
 
 //Rimuovi o gate o servo
-#define PIN_SERVO_P 6
-#define PIN_SERVO_N 6
-#define PIN_SERVO_PWM 6
+#define PIN_SERVO_P 9
 
-#define PIN_GATE_P 6
-#define PIN_GATE_N 6
-#define PIN_GATE_PWM 6
+#define PIN_GATE_PWM 9
 
 #define PIN_PIR 4
 
