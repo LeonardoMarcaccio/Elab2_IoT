@@ -177,11 +177,11 @@ const arduinoCOMsConstants = {
 
 class MessageFactory {
     static #generateMesssageFrame(content) {
-        return arduinoCOMsConstants.messageSyntax.PREFIX 
-            + arduinoCOMsConstants.messageSyntax.SPACING
-            + content
+        return arduinoCOMsConstants.messageSyntax.PREFIX
             + arduinoCOMsConstants.messageSyntax.SPACING
             + arduinoCOMsConstants.messageSyntax.PC_PREFIX
+            + arduinoCOMsConstants.messageSyntax.SPACING
+            + content
             + arduinoCOMsConstants.messageSyntax.ENDLINE
     }
     static generateDataMessage(subject, data) {
