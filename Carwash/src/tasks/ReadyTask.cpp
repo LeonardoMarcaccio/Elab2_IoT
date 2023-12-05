@@ -13,10 +13,13 @@ ReadyTask::ReadyTask(int myPeriod, State *currentState, SimpleLCD *lcd, Button *
 };
 
 void ReadyTask::tick() {
+    Serial.println("NonEntraTo");
     if (*(this->currentState) == READY &&
             this->button->isPowered()) {
+            Serial.println("Entra");
         *(this->currentState) = WASH;
         this->lcd->clear();
         *(this->washStartTime) = millis();
     }
+    Serial.flush();
 }
