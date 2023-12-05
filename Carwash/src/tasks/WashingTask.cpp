@@ -31,6 +31,8 @@ WashingTask::WashingTask(int myPeriod, State *currentState, Thermometer *therm, 
 void WashingTask::tick() {
 
     State currentState = *(this->currentState);
+    double temp = this->therm->getDetection();
+    unsigned long now = millis();
 
     if (this->emergencyFlag == true) {
         this->interval += *(this->emergencyInterval);
@@ -38,8 +40,6 @@ void WashingTask::tick() {
     }
 
     if (currentState == WASH || currentState == OVERHEAT) {
-        double temp = this->therm->getDetection();
-        unsigned long now = millis();
         unsigned long washStart = *(this->washStart);
         this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::TMP_SENSOR, String(temp)));
         this->l2->setPowered(!this->l2->isPowered());
