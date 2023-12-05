@@ -4,7 +4,7 @@
 #include "SerialPCCommandFactory.h"
 
 String SerialCommandParser::unencapsulateCommand(String command) {
-    String msgStart = SerialPCCommandFactory::generateMessageHeading();
+    String msgStart = SerialPCCommandFactory::generateMessageHeading(SerialPCConstants::MC_PREFIX);
     if (command.startsWith(msgStart)) {
         command.remove(0, msgStart.length());
         return command;
@@ -14,9 +14,7 @@ String SerialCommandParser::unencapsulateCommand(String command) {
 
 bool SerialCommandParser::isManteinanceCompleteCommand(String command) {
     String unencapsulatedCommand = SerialCommandParser::unencapsulateCommand(command);
-    if (command.equals(
-        SerialPCCommandFactory::generateMessageHeading()
-        + SerialPCCommandFactory::dataPacket(SerialPCConstants::DATA, SerialPCConstants::CONFIRM))) {
+    if (command.equals(SerialPCCommandFactory::dataPacket(SerialPCConstants::PC_PREFIX, SerialPCConstants::TMP_SENSOR, SerialPCConstants::CONFIRM))) {
         return true;
     }
     return false;

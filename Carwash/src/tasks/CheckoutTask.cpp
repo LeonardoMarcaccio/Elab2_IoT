@@ -56,7 +56,7 @@ void CheckoutTask::tick() {
             this->lcd->clear();
             this->gate->setOpen(false);
             this->washCount++;
-            this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::DATA, String(washCount)));
+            this->console->sendMessage(SerialPCCommandFactory::dataPacket(SerialPCConstants::MC_PREFIX, SerialPCConstants::DATA, String(washCount)));
         }
     }
 }
