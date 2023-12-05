@@ -3,6 +3,8 @@ const fs = require('fs')
 const { SerialPort } = require('serialport')
 const { ReadlineParser } = require('@serialport/parser-readline')
 
+let comSessions = []
+
 /**
  * Checks if a string starts with any of the strings passed.
  * @param {*} str the string to check
@@ -41,7 +43,7 @@ const appInteraction = {
 	interProcessRenderer: ipcRenderer
 }
 
-const comInteraction = {
+/*const comInteraction = {
 	listConnectedDevices: () => {
 		return SerialPort.list()
 	},
@@ -59,12 +61,61 @@ const comInteraction = {
 			dataFunc(data)
 		});
 	}
+}*/
+
+const comManager = {
+	listConnectedDevices: () => {
+		return SerialPort.list()
+	},
+	generateComSession: (path, baudrate, openFunc, dataFunc) => {
+		let ses = new COMSession(path, baudrate, openFunc, dataFunc)
+		comSessions.push(ses)
+		return comSessions.indexOf(ses)
+	},
+	startComSession: (sessionId) => {
+		comSessions[sessionId].startConnection()
+	},
+	sendMessageToComSession: (sessionId, data, errorHandler) => {
+		comSessions[sessionId].sendMessage(data, errorHandler)
+	}
+}
+
+class COMSession {
+	constructor(path, baudrate, openFunc, dataFunc) {
+		this.path = path
+		this.baudrate = baudrate
+		this.openFunc = openFunc
+		this.dataFunc = dataFunc
+	}
+
+	startConnection() {
+		this.serialConnPort = new SerialPort({
+			path:this.path,
+			baudRate:this.baudrate
+		})
+		const dataParser = this.serialConnPort.pipe(
+			new ReadlineParser({ delimiter: '\n' }))
+			this.serialConnPort.on("open", () => {
+			this.openFunc()
+		});
+		dataParser.on('data', (data) =>{
+			this.dataFunc(data)
+		});
+	}
+	
+	sendMessage(data, errorHandler) {
+		this.serialConnPort.write(data, function(error) {
+			if (error) {
+			  return console.log('Error on write: ', err.message)
+			}
+		  })
+	}
 }
 
 contextBridge.exposeInMainWorld("internalApis", {
 	fsInteraction: fsInteraction,
 	appInteraction: appInteraction,
-	comInteraction: comInteraction
+	comManager: comManager
 })
 
 //var serialPortList = await SerialPort.list()
