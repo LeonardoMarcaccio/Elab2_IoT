@@ -76,6 +76,7 @@ class Arduino {
         var loggerElement = document.createElement("p")
         this.loggerCapsule = new Capsule(this.capsuleManager.getLastFreeId(), "Logger "+this.identifier, loggerElement)
         this.loggerCapsule.getBody().style = "overflow: auto;"
+        this.loggerCapsule.getNode().style = "max-height: 10vh;"
         getCapsuleManager().registerCapsule(this.loggerCapsule)
         //console.log("Firing connection on port "+this.path+" with baudrate at: "+this.baudrate)
         this.sessionId = window.internalApis.comManager.generateComSession(this.path, this.baudrate, () => {
@@ -131,7 +132,7 @@ class Arduino {
         if (separatedDataPacket[0] == "CW" && separatedDataPacket[1] == "MC") {
             this.levelOneParser(separatedDataPacket.splice(2, separatedDataPacket.length))
         } else {
-            this.sendParserWarning()
+            sendParserWarning()
         }
     }
 
