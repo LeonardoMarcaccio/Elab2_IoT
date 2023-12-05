@@ -37,8 +37,8 @@ float SimpleServo::getRotationDeg() {
 }
 
 void SimpleServo::setRotationDeg(int targetDeg) {
-    Serial.println(this->pwmPin);
-    Serial.println(targetDeg);
+    Serial.println("Got told to move to " + String(targetDeg) + " position");
+    Serial.flush();
     this->targetDeg = targetDeg;
     this->controlledServo.write(targetDeg);
 }
