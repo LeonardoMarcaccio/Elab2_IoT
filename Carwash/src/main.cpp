@@ -21,16 +21,19 @@
 #include "components/DigitalSensor.h"
 #include "components/DistanceSensor.h"
 
-#define DEBUG
+//#define DEBUG
 #ifndef DEBUG
 
 Scheduler sched;
 State currentState;
-unsigned long startTime = 0;
+
+unsigned long checkInTime = 5000;
+unsigned long washStart = 1000;
+unsigned long emergencyStart = 1000;
+unsigned long emergencyInterval = 0;
 
 void setup() {
 	Serial.begin(9600);
-	// put your setup code here, to run once:
 	currentState = AWAKE;
 
 	Led *l1 = new Led(PIN_L1);
@@ -44,41 +47,26 @@ void setup() {
 	Thermometer *therm = new Thermometer(PIN_TEMPERATURE, true);
 	SerialPC *console = new SerialPC();
 
-	unsigned long checkInTime = 5000;
-	unsigned long washStart = 1000;
-	unsigned long emergencyStart = 1000;
-	unsigned long emergencyInterval = 0;
-
-	/*
-	*/
-	Task *sleep = new SleepTask(SLEEP_PERIOD, &currentState, PIN_PIR, l1, l2, l3); 						// 0 millis
-	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);	// 63 millis con bottone
-	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);	//75 millis con sonar wcs
+	Task *sleep = new SleepTask(SLEEP_PERIOD, &currentState, PIN_PIR, l1, l2, l3);
+	Task *startUp = new StartupTask(STARTUP_PERIOD, &currentState, pir, gate, l1, lcd, &checkInTime);
+	Task *openGate = new OpenGateTask(OPEN_PERIOD, &currentState, sonar, gate, l2, lcd, &checkInTime);
 	Task *ready = new ReadyTask(READY_PERIOD, &currentState, lcd, startButton, &washStart);
-	/*
-	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval); //1 millisecondo
-	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, NULL, &emergencyStart, &emergencyInterval); //60 millis
+	Task *washing = new WashingTask(WASH_PERIOD, &currentState, therm, l2, lcd, console, &washStart, &emergencyStart, &emergencyInterval);
+	Task *emergency = new EmergencyTask(EMERGENCY_PERIOD, &currentState, console, lcd, &emergencyStart, &emergencyInterval);
 	Task *checkOut = new CheckoutTask(CHECKOUT_PERIOD, &currentState, sonar, gate, l2, l3, lcd, console);
-	*/
 
 	sched.init(1000);
 
-	/*
-	*/
 	sched.addTask(sleep);
 	sched.addTask(startUp);
 	sched.addTask(openGate);
 	sched.addTask(ready);
-	/*
 	sched.addTask(washing);
 	sched.addTask(emergency);
 	sched.addTask(checkOut);
-	*/
 }
 
 void loop() {
-	//Serial.println("Gay+");
-	//Serial.flush();
 	sched.schedule();
 }
 

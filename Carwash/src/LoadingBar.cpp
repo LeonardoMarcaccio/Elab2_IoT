@@ -16,7 +16,7 @@ LoadingBar::LoadingBar(unsigned long start, unsigned long currentValue,
 String LoadingBar::getLoadingBar() {
     String loadingBarString = "";
     unsigned long bars = this->currentPercentage / this->blockPercentage;
-    for (int index = 0; index < bars; index++) {
+    for (unsigned long index = 0; index < bars; index++) {
         loadingBarString = loadingBarString + BLOCK;
     }
     return loadingBarString;
