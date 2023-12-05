@@ -2,6 +2,11 @@
 #include "SerialPCCommandFactory.h"
 #include "../Constants.h"
 
+String SerialPCCommandFactory::generateMessageHeading() {
+    return SerialPCConstants::PREFIX+SerialPCConstants::SPACING
+        +SerialPCConstants::MC_PREFIX+SerialPCConstants::SPACING;
+}
+
 String SerialPCCommandFactory::connectionMessage() {
     return SerialPCConstants::PREFIX+SerialPCConstants::SPACING
         +SerialPCConstants::MC_PREFIX+SerialPCConstants::SPACING
